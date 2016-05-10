@@ -66,7 +66,7 @@ angular.module('starter.controllers', [])
           data: location2
       }
     }).then(function () {
-        console.log('Geofence successfully added');
+        console.log('Geofence successfully added!');
     }, function (reason) {
         console.log('Adding geofence failed', reason);
     })
