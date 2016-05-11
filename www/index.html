@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -94,13 +95,23 @@
       
     </ion-content>
 
-    <ion-footer-bar class="bar-stable">
-      <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
-    </ion-footer-bar>
+    <div class="parent">
+      <div class="child">
+        <div class="button-bar tab-buttons">
+          <a class="button buttonorange">
+            <i class="icon ion-gear-a"></i></a>
+          <a class="button buttonorange">
+            <i class="icon ion-person"></i>
+          </a>
+        </div>
 
-       
-
-
+        <div class="home">
+          <a class="button buttonorange home">
+            <img class="hapicon" src="./img/happenstance.png">
+          </a>
+        </div>
+      </div>
+    </div>
 
 
 
