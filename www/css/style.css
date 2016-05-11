@@ -163,7 +163,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .modal-dialog {
-	width:100%;
+	width:80%;
 }
 
 .responsive {
@@ -187,4 +187,11 @@ input[type=range]:focus::-ms-fill-upper {
   opacity: .9;
   filter: alpha(opacity=90);
   z-index: 9;
+}
+.modalbody {
+  position:relative;
+  left:30px;
+  top:20px;
+  border: 10px solid orange;
+  border-radius: 10px;
 }
