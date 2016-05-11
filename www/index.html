@@ -5,6 +5,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -16,6 +17,9 @@
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&amp;sensor=true"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -33,10 +37,72 @@
 
     <ion-content scroll="false">
       <map on-create="mapCreated(map)"></map>
+
+      <!-- Modal -->
+    <div  ng-controller="ModalCtrl" class="modal modal-transparent fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&times;</button>
+            <h4 class="modal-title">{{location.name}}</h4>
+          </div>
+          <div class="modal-body">
+            <div ng-show = "location.videoUrl" >
+              <video class="responsive"ng-src="{{location.videoUrl}}" width="340" id="myvideo" webkit-playsinline="true">
+                Your browser does not support HTML5 video.
+              </video>
+              <!-- Video Controls -->
+              <div id="video-controls">
+                <input class="progress-bar orange" type="range" id="seek-bar" value="0">
+                <div class="row">
+                  <button class="button button-clear orange col-33" type="button" id="pre-backward"><i class="icon super-ios-arrow-back orange"></i></button>
+                  <button class="button button-clear orange col-33" type="button" id="play-pause"><i class="icon super-pause orange"></i></button> 
+                  <button class="button button-clear orange col-33" type="button" id="next"><i class="icon super-ios-arrow-forward orange"></i></button>
+                </div>
+                <div>
+                  {{location.description}}
+                </div>
+              </div>
+            </div>
+            <div ng-show = "location.audioUrl" >
+              <audio ng-src="{{location.audioUrl}}" id="myaudio">
+                Your browser does not support the audio element.
+              </audio>
+              <div>
+                <img class="responsive" ng-src="{{location.imageUrl}}"></img>
+              </div>
+              <div id="audio-controls">
+                <input class="progress-bar orange" type="range" id="seek-bar-audio" value="0">
+                <div class="row">
+                  <button class="button button-clear orange col-33" type="button" id="pre-backward-audio"><i class="icon super-ios-arrow-back orange"></i></button>
+                  <button class="button button-clear orange col-33" type="button" id="play-pause-audio"><i class="icon super-pause orange"></i></button> 
+                  <button class="button button-clear orange col-33" type="button" id="next-audio"><i class="icon super-ios-arrow-forward orange"></i></button>
+                </div>
+                <div>
+                  {{location.description}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" ng-click="stopPlay()"class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+      
     </ion-content>
 
     <ion-footer-bar class="bar-stable">
       <a ng-click="centerOnMe()" class="button button-icon icon ion-navigate"></a>
     </ion-footer-bar>
+
+       
+
+
+
+
+
   </body>
 </html>
