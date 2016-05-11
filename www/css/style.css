@@ -162,6 +162,10 @@ input[type=range]:focus::-ms-fill-upper {
 	/*height: 100%;*/
 }
 
+.modal-dialog {
+	width:100%;
+}
+
 .responsive {
 	width: 100%;
 	height: auto;
