@@ -41,6 +41,7 @@ angular.module('starter.controllers', [])
     imageUrl : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
 
   };
+
   document.addEventListener('deviceready', function () {
       // window.geofence is now available
       window.geofence.initialize().then(function () {
@@ -49,6 +50,7 @@ angular.module('starter.controllers', [])
       }, function (error) {
           console.log("Error", error);
       });
+      console.log('check');
   }, false);
 
 
