@@ -137,6 +137,7 @@ angular.module('starter.controllers', [])
       window.geofence.initialize().then(function () {
           console.log("Successful initialization" + angular.toJson(window.geofence));
           addGeofence();
+          onNotificationClicked();
       }, function (error) {
           console.log("Error", error);
       });
@@ -145,24 +146,38 @@ angular.module('starter.controllers', [])
 
   function addGeofence() {
     console.log("addGeofence() called");
-    window.geofence.addOrUpdate({
-      id:             "69ca1b88-6fbe-4e80-a4d4-ff4d3748acdb",
-      latitude:       location3.loc.lat,
-      longitude:      location3.loc.lng,
+    locations.forEach(function(location) {
+      window.geofence.addOrUpdate({
+      id:             location.name,
+      latitude:       location.loc.lat,
+      longitude:      location.loc.lng,
       radius:         100,
       transitionType: TransitionType.BOTH,
       notification: {
           id:             1,
-          title:          "Welcome to" + location3.name,
-          text:           location3.description,
+          title:          "Welcome to" + location.name,
+          text:           location.description,
           openAppOnClick: true,
-          data: location3
-      }
-    }).then(function () {
-        console.log('Geofence successfully added!');
-    }, function (reason) {
-        console.log('Adding geofence failed', reason);
-    })
+          data: location
+        }
+      }).then(function () {
+          console.log('Geofence successfully added!');
+      }, function (reason) {
+          console.log('Adding geofence failed', reason);
+      });
+    });
+    
+  };
+
+  function onNotificationClicked() {
+    window.geofence.onNotificationClicked = function (location) {
+      console.log('App opened from Geo Notification!', location);
+      $scope.map.setCenter(location.loc);
+      $scope.map.setZoom(14);
+
+      window.localStorage.setItem("clicked_location", JSON.stringify(location));
+      $("#myModal").modal();
+    };
   };
 
 
