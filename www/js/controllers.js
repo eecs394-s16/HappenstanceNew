@@ -50,7 +50,6 @@ angular.module('starter.controllers', [])
       }, function (error) {
           console.log("Error", error);
       });
-      console.log('check');
   }, false);
 
 
