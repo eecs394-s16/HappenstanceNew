@@ -1,6 +1,8 @@
 angular.module('starter.controllers', [])
 
 .controller('MapCtrl', function($scope, $ionicLoading) {
+
+
   // hardcode data for locations
       var location1 = {
       name : 'Green Door Tavern',
@@ -65,7 +67,7 @@ angular.module('starter.controllers', [])
         $("#myModal").modal();
       // // supersonic.ui.modal.show(modalView, $rootScope.options);
       // });
-      });    
+      });
     });
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
@@ -124,7 +126,7 @@ angular.module('starter.controllers', [])
   };
 
 
-  
+
 
 
     //*******************************************
@@ -171,6 +173,21 @@ angular.module('starter.controllers', [])
 .controller('ModalCtrl', function($scope) {
   var video = document.getElementById("myvideo");
   var audio = document.getElementById("myaudio");
+
+  //react button
+  var hasLiked = false;
+        $scope.likeClick = function () {
+            if (!hasLiked) {
+                hasLiked = true;
+                $scope.liked = 'Unlike';
+                $scope.likeCount += 1;
+            } else {
+                hasLiked = false;
+                $scope.liked = 'Like';
+                $scope.likeCount -= 1;
+            }
+        };
+
 
 
   //   $('#myModal').on('show', function() {
@@ -237,17 +254,17 @@ angular.module('starter.controllers', [])
       video.play();
 
       // Update the button text to 'Pause'
-      playButton.innerHTML = '<i class="icon super-pause orange"></i>';
+      playButton.innerHTML = '<i class="icon ion-pause orange"></i>';
     } else {
       // Pause the video
       video.pause();
 
       // Update the button text to 'Play'
-      playButton.innerHTML = '<i class="icon super-play orange"></i>';
+      playButton.innerHTML = '<i class="icon ion-play orange"></i>';
     }
   });
 
-    
+
   // Event listener for the seek bar
   seekBar.addEventListener("change", function() {
     // Calculate the new time
@@ -312,13 +329,13 @@ angular.module('starter.controllers', [])
       audio.play();
 
       // Update the button text to 'Pause'
-      playButtonAudio.innerHTML = '<i class="icon super-pause orange"></i>';
+      playButtonAudio.innerHTML = '<i class="icon ion-pause orange"></i>';
     } else {
       // Pause the video
       audio.pause();
 
       // Update the button text to 'Play'
-      playButtonAudio.innerHTML = '<i class="icon super-play orange"></i>';
+      playButtonAudio.innerHTML = '<i class="icon ion-play orange"></i>';
     }
   });
 
