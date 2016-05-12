@@ -146,7 +146,7 @@ angular.module('starter.controllers', [])
       id:             location.name,
       latitude:       location.loc.lat,
       longitude:      location.loc.lng,
-      radius:         100,
+      radius:         300,
       transitionType: TransitionType.BOTH,
       notification: {
           id:             1,
