@@ -1,8 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('MapCtrl', function($scope, $ionicLoading) {
-<<<<<<< HEAD
-
 
   // hardcode data for locations
       var location1 = {
@@ -45,11 +43,6 @@ angular.module('starter.controllers', [])
 
     var locations = [location1, location2, location3];
 
-
-||||||| merged common ancestors
-=======
-  console.log('hi');
->>>>>>> 7afc5bf893bf614595a747dc9faac8cffcd8b072
   $scope.mapCreated = function(map) {
     $scope.map = map;
 
@@ -130,21 +123,9 @@ angular.module('starter.controllers', [])
     });
   };
 
-
-
-
-
     //*******************************************
   //***      Geofence **********************
   //
-
-<<<<<<< HEAD
-||||||| merged common ancestors
-  };
-=======
-  };
-
->>>>>>> 7afc5bf893bf614595a747dc9faac8cffcd8b072
   document.addEventListener('deviceready', function () {
       // window.geofence is now available
       console.log("device ready!");
