@@ -60,7 +60,7 @@ angular.module('starter.controllers', [])
 
        // add marker event listener
       google.maps.event.addListener(marker,'click', function() {
-        alert("modal is openning!");
+        // alert("modal is openning!");
       //   var modalView = new supersonic.ui.View("example#modal");
         // alert("modal is going to show up!");
         window.localStorage.setItem("clicked_location", JSON.stringify(location));
