@@ -9,8 +9,8 @@ angular.module('starter.controllers', [])
       videoUrl :null,
       audioUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/Janet+Fuller-+Speakeasies_Abridged_mixdown.mp3",
       loc : {
-        lat : 41.894854,
-        lng : -87.6396137
+        lat : 41.985632,
+        lng : -87.806928
       },
       description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
       imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg",
@@ -22,8 +22,8 @@ angular.module('starter.controllers', [])
       videoUrl :null,
       audioUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/Surgical+Museum_Abridged_mixdown.mp3",
       loc : {
-        lat : 41.9103997,
-        lng : -87.6276496
+        lat : 41.9879254,
+        lng : -87.8093869
       },
       description : 'Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say “I do.”',
       imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/surgical_museum__1__720.jpg",
@@ -34,8 +34,8 @@ angular.module('starter.controllers', [])
       videoUrl :"http://www.w3schools.com/html/mov_bbb.mp4",
       audioUrl : null,
       loc : {
-        lat : 42.058044,
-        lng : -87.677041
+        lat : 41.9865856,
+        lng : -87.8083999
       },
       description : "Northwestern University is a private research university with campuses in Evanston and Chicago in Illinois, United States, as well as Doha, Qatar.",
       imageUrl : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
@@ -48,9 +48,9 @@ angular.module('starter.controllers', [])
   $scope.mapCreated = function(map) {
     $scope.map = map;
 
-    $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
+    $scope.myCenter = location1.loc;
     $scope.map.setCenter($scope.myCenter);
-    $scope.map.setZoom(14);
+    $scope.map.setZoom(17);
 
     locations.forEach(function(location) {
       var marker = new google.maps.Marker({
@@ -175,7 +175,7 @@ angular.module('starter.controllers', [])
     window.geofence.onNotificationClicked = function (location) {
       console.log('App opened from Geo Notification!', location);
       $scope.map.setCenter(location.loc);
-      $scope.map.setZoom(14);
+      $scope.map.setZoom(17);
 
       window.localStorage.setItem("clicked_location", JSON.stringify(location));
       $("#myModal").modal();
