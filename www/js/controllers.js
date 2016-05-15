@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
 
 .controller('MapCtrl', function($scope, $ionicLoading) {
-
   // hardcode data for locations
       var location1 = {
       name : 'Green Door Tavern',
