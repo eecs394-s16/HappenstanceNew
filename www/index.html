@@ -112,6 +112,15 @@
           <div class="mossdal-footer">
             <!-- <button type="button" ng-click="stopPlay()" class="btn btn-default" data-dismiss="modal">Close</button> -->
             <a ng-click="likeClick()" ng-init="liked=&apos;Like&apos; ;likeCount=0">{{liked}} {{likeCount}}</a>
+
+            <div class="list">
+
+              <a class="item item-avatar" href="#" ng-repeat="relatedLoc in locations | filter: related">
+                <img src="{{relatedLoc.imageUrl}}">
+                <h2>{{relatedLoc.name}}</h2>
+                <p>{{relatedLoc.description}}</p>
+              </a>
+            </div>
           </div>
         </div>
       </div>

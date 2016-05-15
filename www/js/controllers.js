@@ -13,6 +13,7 @@ angular.module('starter.controllers', [])
       },
       description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
       imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg",
+      tags: ['entertainment', 'bar']
 
     };    https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg?X-Amz-Date=20160510T044953Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=f9a132d37fcc6517929ed941b460b0999d5cf38e4e84f02168d31c9b4846c78a&X-Amz-Credential=ASIAJ3NLGIP5K6RJNNSQ/20160510/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEOX//////////wEaDHN6an18CQN73uIAsSLHAdX34fSEmq18WJCd8KfG2emLbd0ALo/3KPmCPKJ2nqVeWteGvVDm5sJ5Bk2r3ERAZlKdxGVeEVHrbrRAfPqGkn/n5vqpYlX5RgizISaovx5aTKijjUuUusB7N0FErLGttEU988htDLF/g10rmXEi43mFb5TAcwJfCCRIsGhBq//GCrwHQ7cGVGO3D3lpW7JM6%2BdpqbqbOxkgWJ8fv3T6clSZVm145m/BQsgvnTlr9eYiBlom7TDu1zdv%2B32t4dIf2s3BcfPAOpwo2r/FuQU%3D
 
@@ -26,7 +27,7 @@ angular.module('starter.controllers', [])
       },
       description : 'Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say “I do.”',
       imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/surgical_museum__1__720.jpg",
-
+      tags: ['entertainment', 'science']
     };
     var location3 = {
       name : 'Northwestern University',
@@ -38,10 +39,12 @@ angular.module('starter.controllers', [])
       },
       description : "Northwestern University is a private research university with campuses in Evanston and Chicago in Illinois, United States, as well as Doha, Qatar.",
       imageUrl : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
+      tags: ['education', 'science']
 
     };
 
-    var locations = [location1, location2, location3];
+    $scope.locations = [location1, location2, location3];
+
 
   $scope.mapCreated = function(map) {
     $scope.map = map;
@@ -50,7 +53,7 @@ angular.module('starter.controllers', [])
     $scope.map.setCenter($scope.myCenter);
     $scope.map.setZoom(14);
 
-    locations.forEach(function(location) {
+    $scope.locations.forEach(function(location) {
       var marker = new google.maps.Marker({
       position: location.loc
       });
@@ -141,7 +144,7 @@ angular.module('starter.controllers', [])
 
   function addGeofence() {
     console.log("addGeofence() called");
-    locations.forEach(function(location) {
+    $scope.locations.forEach(function(location) {
       window.geofence.addOrUpdate({
       id:             location.name,
       latitude:       location.loc.lat,
@@ -178,23 +181,27 @@ angular.module('starter.controllers', [])
 
 })
 
+
+// Modal controller
 .controller('ModalCtrl', function($scope) {
   var video = document.getElementById("myvideo");
   var audio = document.getElementById("myaudio");
 
   //react button
   var hasLiked = false;
-        $scope.likeClick = function () {
-            if (!hasLiked) {
-                hasLiked = true;
-                $scope.liked = 'Unlike';
-                $scope.likeCount += 1;
-            } else {
-                hasLiked = false;
-                $scope.liked = 'Like';
-                $scope.likeCount -= 1;
-            }
-        };
+  $scope.likeClick = function () {
+      if (!hasLiked) {
+          hasLiked = true;
+          $scope.liked = 'Unlike';
+          $scope.likeCount += 1;
+      } else {
+          hasLiked = false;
+          $scope.liked = 'Like';
+          $scope.likeCount -= 1;
+      }
+  };
+
+
 
 
 
@@ -214,6 +221,21 @@ angular.module('starter.controllers', [])
     $scope.autoplay();
 
   });
+
+  // filter for related storis
+  $scope.related = function(relatedLoc) {
+      if (relatedLoc.name === $scope.location.name) {
+        return false;
+      }
+
+      for (var i = 0; i < $scope.location.tags.length; i++) {
+        if (relatedLoc.tags.includes($scope.location.tags[i])) {
+          console.log("tag found in relatedLoc");
+          return true;
+        }
+      }
+      return false;
+  };
 
   $scope.autoplay = function() {
     // Video
