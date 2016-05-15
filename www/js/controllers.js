@@ -237,6 +237,14 @@ angular.module('starter.controllers', [])
       return false;
   };
 
+  $scope.openRelated = function(relatedLoc) {
+    $scope.location = relatedLoc;
+    $scope.$apply();
+    $scope.autoplay();
+    $scope.map.setCenter(relatedLoc.loc);
+    $scope.map.setZoom(14);
+  };
+
   $scope.autoplay = function() {
     // Video
     video.src = $scope.location.videoUrl;
@@ -313,6 +321,13 @@ angular.module('starter.controllers', [])
     seekBar.value = value;
   });
 
+  video.addEventListener('ended',gotoRelated,false);
+  function gotoRelated() {
+    console.log("ended! going to relatedStories");
+    $('#relatedStories').scrollTop(0);
+  };
+
+
   // Pause the video when the slider handle is being dragged
   seekBar.addEventListener("mousedown", function() {
     video.pause();
@@ -322,6 +337,11 @@ angular.module('starter.controllers', [])
   seekBar.addEventListener("mouseup", function() {
     video.play();
   });
+
+
+
+
+
 
   // FOR AUDIO
   // Event listener for the seek bar
@@ -341,6 +361,9 @@ angular.module('starter.controllers', [])
     // Update the slider value
     seekBarAudio.value = value;
   });
+
+  audio.addEventListener('ended',gotoRelated,false);
+
 
   // Pause the video when the slider handle is being dragged
   seekBarAudio.addEventListener("mousedown", function() {
