@@ -324,7 +324,9 @@ angular.module('starter.controllers', [])
   video.addEventListener('ended',gotoRelated,false);
   function gotoRelated() {
     console.log("ended! going to relatedStories");
-    $('#relatedStories').scrollTop(0);
+    var footerOffeset = $('#relatedStories').offset().top;
+    console.log("footer offset: " + footerOffeset);
+    $('#myModal').scrollTop(footerOffeset);
   };
 
 
