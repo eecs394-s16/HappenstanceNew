@@ -164,7 +164,7 @@ angular.module('starter.controllers', [])
           console.log('Adding geofence failed', reason);
       });
     });
-    
+
   };
 
   function onNotificationClicked() {
