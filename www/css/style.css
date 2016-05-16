@@ -200,4 +200,8 @@ input[type=range]:focus::-ms-fill-upper {
 }
 .fav-icon {
   font-size: 18px;
+  margin-left: 30px;
+}
+.fav-icon: hover {
+  color:#990000;
 }
