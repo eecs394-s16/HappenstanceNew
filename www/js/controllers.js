@@ -13,8 +13,7 @@ angular.module('starter.controllers', [])
       description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
       imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg",
       tags: ['entertainment', 'bar']
-
-    };    https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg?X-Amz-Date=20160510T044953Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=f9a132d37fcc6517929ed941b460b0999d5cf38e4e84f02168d31c9b4846c78a&X-Amz-Credential=ASIAJ3NLGIP5K6RJNNSQ/20160510/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=FQoDYXdzEOX//////////wEaDHN6an18CQN73uIAsSLHAdX34fSEmq18WJCd8KfG2emLbd0ALo/3KPmCPKJ2nqVeWteGvVDm5sJ5Bk2r3ERAZlKdxGVeEVHrbrRAfPqGkn/n5vqpYlX5RgizISaovx5aTKijjUuUusB7N0FErLGttEU988htDLF/g10rmXEi43mFb5TAcwJfCCRIsGhBq//GCrwHQ7cGVGO3D3lpW7JM6%2BdpqbqbOxkgWJ8fv3T6clSZVm145m/BQsgvnTlr9eYiBlom7TDu1zdv%2B32t4dIf2s3BcfPAOpwo2r/FuQU%3D
+    };
 
     var location2 = {
       name : ' International Museum of Surgical Science',
@@ -28,6 +27,7 @@ angular.module('starter.controllers', [])
       imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/surgical_museum__1__720.jpg",
       tags: ['entertainment', 'science']
     };
+
     var location3 = {
       name : 'Northwestern University',
       videoUrl :"http://www.w3schools.com/html/mov_bbb.mp4",
@@ -223,17 +223,22 @@ angular.module('starter.controllers', [])
 
   // filter for related storis
   $scope.related = function(relatedLoc) {
-      if (relatedLoc.name === $scope.location.name) {
-        return false;
-      }
-
-      for (var i = 0; i < $scope.location.tags.length; i++) {
-        if (relatedLoc.tags.includes($scope.location.tags[i])) {
-          console.log("tag found in relatedLoc");
-          return true;
-        }
-      }
+    var count = 0;
+    if (relatedLoc.name === $scope.location.name) {
       return false;
+    }
+    for (var i = 0; i < $scope.location.tags.length; i++) {
+      if (relatedLoc.tags.includes($scope.location.tags[i])) {
+        count++;
+      }
+    }
+    console.log(relatedLoc.name)
+    console.log(count)
+    relatedLoc.counter = count;
+    if (count > 0) {
+      return true
+    }
+    return false;
   };
 
   $scope.openRelated = function(relatedLoc) {
