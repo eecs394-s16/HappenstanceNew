@@ -33,109 +33,15 @@
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/directives.js"></script>
+    
+
 
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
   </head>
 
-  <body ng-app="starter" ng-controller="MapCtrl">
-    <ion-header-bar class="bar-stable">
-      <h1 class="title">Map</h1>
-    </ion-header-bar>
-
-    <ion-content scroll="false">
-      <map id="googleMap" on-create="mapCreated(map)"></map>
-      <div class="parent">
-        <div class="child">
-          <div class="button-bar tab-buttons">
-            <a class="button buttonorange">
-              <i class="icon ion-gear-a"></i></a>
-            <a class="button buttonorange" href="login.html">
-              <i class="icon ion-person"></i>
-            </a>
-          </div>
-
-          <div class="home">
-            <a class="button buttonorange home">
-              <img class="hapicon" src="./img/Happenstancepic.png">
-            </a>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- Modal -->
-    <div ng-controller="ModalCtrl" class="modal modal-transparent fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content modalbody">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
-            <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
-            <h4 class="modal-title">{{location.name}}
-            <i class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="toggle3=true"></i>
-            <i class ="fa fa-star-o fav-icon" ng-show="toggle3"  ng-click="toggle3=false" style="color:#ffa500"></i>
-          </h4>
-          </div>
-          <div class="modal-body">
-            <div ng-show="location.videoUrl">
-              <video class="responsive" ng-src="{{location.videoUrl}}" width="340" id="myvideo" webkit-playsinline="true">
-                Your browser does not support HTML5 video.
-              </video>
-              <!-- Video Controls -->
-              <div id="video-controls">
-                <input class="progress-bar orange" type="range" id="seek-bar" value="0">
-                <div class="row">
-                  <button class="button button-clear orange col-33" type="button" id="pre-backward"><i class="icon ion-chevron-left orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="play-pause"><i class="icon ion-pause orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="next"><i class="icon ion-chevron-right orange"></i></button>
-                </div>
-                <div>
-                  {{location.description}}
-                </div>
-              </div>
-            </div>
-            <div ng-show="location.audioUrl">
-              <audio ng-src="{{location.audioUrl}}" id="myaudio">
-                Your browser does not support the audio element.
-              </audio>
-              <div>
-                <img class="responsive" ng-src="{{location.imageUrl}}">
-              </div>
-              <div id="audio-controls">
-                <input class="progress-bar orange" type="range" id="seek-bar-audio" value="0">
-                <div class="row">
-                  <button class="button button-clear orange col-33" type="button" id="pre-backward-audio"><i class="icon ion-chevron-left orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="play-pause-audio"><i class="icon ion-pause orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="next-audio"><i class="icon ion-chevron-right orange"></i></button>
-                </div>
-                <div>
-                  {{location.description}}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mossdal-footer">
-            <!-- <button type="button" ng-click="stopPlay()" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <a class="react-button ng-click="likeClick()" ng-init="liked=&apos;Like&apos; ;likeCount=0">{{liked}} {{likeCount}}</a>
-
-            <div class="list" id="relatedStories">
-              <div class="item item-divider">
-                Related stories
-              </div>
-
-              <a class="item item-avatar" href="#" ng-repeat="relatedLoc in locations | filter: related | orderBy: '-counter' | limitTo: 1" ng-click="openRelated(relatedLoc)" ;="">
-                <img src="{{relatedLoc.imageUrl}}">
-                <h2>{{relatedLoc.name}}</h2>
-                <p>{{relatedLoc.description}}</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    </ion-content>
+  <body ng-app="starter">
+    <div ui-view></div>
 
 
 

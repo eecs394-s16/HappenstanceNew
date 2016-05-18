@@ -2,9 +2,10 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray) {
       var ref = new Firebase("https://happenstance.firebaseio.com");
-      var database = $firebaseArray(ref)
+      var database = $firebaseArray(ref);
 
-      $scope.createAccount = function() {
+      $scope.login = function() {
+        console.log("inside login function!");
         ref.createUser({
           email    : $scope.email,
           password : $scope.password
@@ -16,4 +17,6 @@ angular.module('starter.controllers', [])
           }
         });
       };
+
+
 });

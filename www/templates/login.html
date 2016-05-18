@@ -1,0 +1,20 @@
+
+	<div ng-controller="LoginCtrl">
+		<ion-header-bar class="bar-stable">
+		  <h1 class="title">Login</h1>
+		</ion-header-bar>
+        <ion-content>
+    	    <ul>
+    	        <li><label for="usermail">Email</label>
+    	        <input ng-model="email" type="email" name="usermail" placeholder="yourname@email.com" required></li>
+    	        <li><label for="password">Password</label>
+    	        <input ng-model="password" type="password" name="password" placeholder="password" required></li>
+    	        <li>
+    	        <input ng-click="createAccount()" type="submit" value="Login"></li>
+    	    </ul>
+    	    <a class="button buttonorange" ui-sref="home">
+              Go back
+            </a>
+
+    </ion-content>
+</div>
