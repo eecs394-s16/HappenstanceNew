@@ -6,15 +6,14 @@
         <ion-content>
     	    <ul>
     	        <li><label for="usermail">Email</label>
-    	        <input ng-model="email" type="email" name="usermail" placeholder="yourname@email.com" required></li>
+    	        <input ng-model="formData.email" type="email" name="usermail" placeholder="yourname@email.com" required></li>
     	        <li><label for="password">Password</label>
-    	        <input ng-model="password" type="password" name="password" placeholder="password" required></li>
+    	        <input ng-model="formData.password" type="password" name="password" placeholder="password" required></li>
     	        <li>
-    	        <input ng-click="createAccount()" type="submit" value="Login"></li>
+    	        <input ng-click="login()" type="submit" value="Login"></li>
     	    </ul>
     	    <a class="button buttonorange" ui-sref="home">
               Go back
             </a>
-
     </ion-content>
 </div>
