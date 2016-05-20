@@ -9,11 +9,10 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
-
+    <!-- icon-fontawesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-    <script src="https://cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
-    
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -37,7 +36,7 @@
 
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
-    
+
   </head>
 
   <body ng-app="starter" ng-controller="MapCtrl">
@@ -52,7 +51,7 @@
           <div class="button-bar tab-buttons">
             <a class="button buttonorange">
               <i class="icon ion-gear-a"></i></a>
-            <a class="button buttonorange">
+            <a class="button buttonorange" href="login.html">
               <i class="icon ion-person"></i>
             </a>
           </div>
@@ -73,7 +72,11 @@
         <div class="modal-content modalbody">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
-            <h4 class="modal-title">{{location.name}}</h4>
+            <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
+            <h4 class="modal-title">{{location.name}}
+            <i class="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="toggle3=true"></i>
+            <i class="fa fa-star-o fav-icon" ng-show="toggle3" ng-click="toggle3=false" style="color:#ffa500"></i>
+          </h4>
           </div>
           <div class="modal-body">
             <div ng-show="location.videoUrl">
@@ -115,14 +118,14 @@
           </div>
           <div class="mossdal-footer">
             <!-- <button type="button" ng-click="stopPlay()" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <a ng-click="likeClick()" ng-init="liked=&apos;Like&apos; ;likeCount=0">{{liked}} {{likeCount}}</a>
+            <a class="react-button ng-click=" likeclick()"="" ng-init="liked=&apos;Like&apos; ;likeCount=0">{{liked}} {{likeCount}}</a>
 
             <div class="list" id="relatedStories">
               <div class="item item-divider">
                 Related stories
               </div>
 
-              <a class="item item-avatar" href="#" ng-repeat="relatedLoc in locations | filter: related" ng-click="openRelated(relatedLoc)" ;="">
+              <a class="item item-avatar" href="#" ng-repeat="relatedLoc in locations | filter: related | orderBy: &apos;-counter&apos; | limitTo: 3" ng-click="openRelated(relatedLoc)" ;="">
                 <img src="{{relatedLoc.imageUrl}}">
                 <h2>{{relatedLoc.name}}</h2>
                 <p>{{relatedLoc.description}}</p>

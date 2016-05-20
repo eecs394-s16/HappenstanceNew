@@ -195,4 +195,13 @@ input[type=range]:focus::-ms-fill-upper {
   border: 10px solid orange;
   border-radius: 10px;
 }
-
+.react-button {
+  margin-left: 18px;
+}
+.fav-icon {
+  font-size: 18px;
+  margin-left: 30px;
+}
+.fav-icon: hover {
+  color:#990000;
+}
