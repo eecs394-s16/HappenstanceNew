@@ -38,7 +38,7 @@ angular.module('starter.controllers', ['ui.router'])
       },
       description : "Northwestern University is a private research university with campuses in Evanston and Chicago in Illinois, United States, as well as Doha, Qatar.",
       imageUrl : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
-      tags: ['education', 'science']
+      tags: ['education', 'science', 'entertainment']
 
     };
 
@@ -232,8 +232,8 @@ angular.module('starter.controllers', ['ui.router'])
         count++;
       }
     }
-    console.log(relatedLoc.name)
-    console.log(count)
+    console.log(relatedLoc.name);
+    console.log(count);
     relatedLoc.counter = count;
     if (count > 0) {
       return true
