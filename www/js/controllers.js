@@ -215,10 +215,14 @@ angular.module('starter.controllers', ['ui.router'])
   //
   $('#myModal').on('show.bs.modal', function() {
     console.log("modal showing!");
+    $scope.$apply(function(){
+      $scope.notFinished = true;
+    });
+    // console.log("notFinished at beginning of modal")
+    // console.log($scope.notFinished)
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
     $scope.$apply();
     $scope.autoplay();
-
   });
 
   // filter for related storis
@@ -277,7 +281,10 @@ angular.module('starter.controllers', ['ui.router'])
     $(".modal-backdrop").addClass("modal-backdrop-transparent");
   });
 
-
+  // Status
+  // $scope.notFinished = true;
+  // console.log("notFinished being called")
+  // console.log($scope.notFinished)
 
   // Buttons
   var playButton = document.getElementById("play-pause");
@@ -327,6 +334,11 @@ angular.module('starter.controllers', ['ui.router'])
 
   video.addEventListener('ended',gotoRelated,false);
   function gotoRelated() {
+    $scope.$apply(function(){
+      $scope.notFinished = false;
+    });
+    // console.log("notFinished at end of modal")
+    // console.log($scope.notFinished)
     console.log("ended! going to relatedStories");
     var footerOffeset = $('#relatedStories').offset().top;
     console.log("footer offset: " + footerOffeset);

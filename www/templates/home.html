@@ -78,8 +78,7 @@
           <div class="mossdal-footer">
             <!-- <button type="button" ng-click="stopPlay()" class="btn btn-default" data-dismiss="modal">Close</button> -->
             <a class="react-button" ng-click="likeClick()" ng-init="liked=&apos;Like&apos; ;likeCount=0">{{liked}} {{likeCount}}</a>
-
-            <div class="list" id="relatedStories">
+            <div class="list" id="relatedStories" ng-hide="notFinished">
               <div class="item item-divider">
                 Related stories
               </div>
