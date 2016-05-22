@@ -6,21 +6,6 @@ angular.module('starter.controllers')
       $scope.formData = {};
       $scope.loginMessage = "";
 
-      // $scope.login = function() {
-      //   ref.createUser({
-      //     email    : $scope.formData.email,
-      //     password : $scope.formData.password
-      //   }, function(error, userData) {
-      //     if (error) {
-      //       console.log("Error creating user:", error);
-      //     } else {
-      //       console.log("Successfully created user account with uid:", userData.uid);
-      //       $state.go('home');
-      //     }
-      //   });
-      // };
-
-
       $scope.createAccount = function() {
         console.log("inside createAccount!");
         var email = $scope.formData.email;
@@ -30,17 +15,26 @@ angular.module('starter.controllers')
           var errorCode = error.code;
           var errorMessage = error.message;
           // [START_EXCLUDE]
-          if (errorCode == 'auth/weak-password') {
-            alert('The password is too weak.');
-          } else {
-            console.error(error);
+          switch (error.code) {
+            case "auth/email-already-in-use":
+              $scope.loginMessage = "The email has already been taken."
+              break;
+            case "auth/weak-password":
+              $scope.loginMessage = "The specified user account password is too weak."
+              break;
+            case "auth/invalid-email":
+              $scope.loginMessage = "The specified email address is not valid."
+              break;
+            default:
+              $scope.loginMessage = error.code;
           }
-          // [END_EXCLUDE]
+          $scope.$apply();
+          console.error(error);
+                    // [END_EXCLUDE]
         }).then(function(authData) {
           console.log("account successfully created for "+ authData.uid);
           console.log(authData);
           firebase.database().ref('users/' + authData.uid).set({
-      //         // provider: authData.provider,
               email: $scope.formData.email,
               name: $scope.formData.email.replace(/@.*/, '')
           });
@@ -58,11 +52,20 @@ angular.module('starter.controllers')
             var errorCode = error.code;
             var errorMessage = error.message;
             // [START_EXCLUDE]
-            if (errorCode === 'auth/wrong-password') {
-              alert('Wrong password.');
-            } else {
-              console.error(error);
+            console.error(error);
+            switch (error.code) {
+              case "auth/wrong-password":
+                $scope.loginMessage = "The specified user account password is incorrect."
+                break;
+              case "auth/user-not-found":
+                $scope.loginMessage = "The specified user account does not exist."
+                break;
+              default:
+                $scope.loginMessage = "Error logging user in:";
             }
+            $scope.$apply();
+            
+            
             // [END_EXCLUDE]
           }).then(function(authData) {
             console.log("signed in as " + authData.uid);
@@ -70,25 +73,5 @@ angular.module('starter.controllers')
           });
 
         };
-      // $scope.createAccount = function() {
-      //   ref.createUser({
-      //     email    : $scope.formData.email,
-      //     password : $scope.formData.password
-      //   }, function(error, authData) {
-      //     if (error) {
-      //       console.log("Error creating user:", error);
-      //       $scope.loginMessage = error;
-      //     } else {
-      //       console.log("Successfully created user account with uid:", authData.uid);
-      //       console.log(authData)
-      //       // save the user's profile into the database so we can list users,
-      //       // use them in Security and Firebase Rules, and show profiles
-      //       ref.child("users").child(authData.uid).set({
-      //         // provider: authData.provider,
-      //         email: $scope.formData.email,
-      //         name: $scope.formData.email.replace(/@.*/, '')
-      //       });
-      //     }
-      //   });
-      // };
+
 });
