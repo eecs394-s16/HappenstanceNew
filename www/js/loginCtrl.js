@@ -11,8 +11,9 @@ angular.module('starter.controllers')
           password : $scope.formData.password
         }, function(error, authData) {
           if (error) {
-            console.log("Login Failed!", error);
-            $scope.loginMessage = error;
+            console.log("Login Failed!", error.code);
+            $scope.loginMessage = error.code;
+            $scope.$apply()
           } else {
             console.log("Authenticated successfully with payload:", authData);
             console.log(authData.uid)
@@ -27,11 +28,14 @@ angular.module('starter.controllers')
           password : $scope.formData.password
         }, function(error, authData) {
           if (error) {
-            console.log("Error creating user:", error);
-            $scope.loginMessage = error;
+            console.log("Error creating user:", error.code);
+            $scope.loginMessage = error.code;
+            $scope.$apply()
           } else {
             console.log("Successfully created user account with uid:", authData.uid);
             console.log(authData)
+            $scope.loginMessage = "Account successfully created!"
+            $scope.$apply
             // save the user's profile into the database so we can list users,
             // use them in Security and Firebase Rules, and show profiles
             ref.child("users").child(authData.uid).set({
