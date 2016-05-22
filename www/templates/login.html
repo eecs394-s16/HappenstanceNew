@@ -11,7 +11,9 @@
     	        <input ng-model="formData.password" type="password" name="password" placeholder="password" required></li>
     	        <li>
     	        <input ng-click="login()" type="submit" value="Login"></li>
+                <input ng-click="createAccount()" type="submit" value="Create Account"></li>
     	    </ul>
+            <p>{{loginMessage}}</p>
     	    <a class="button buttonorange" ui-sref="home">
               Go back
             </a>
