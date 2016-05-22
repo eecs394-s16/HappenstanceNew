@@ -12,7 +12,19 @@ angular.module('starter.controllers')
         }, function(error, authData) {
           if (error) {
             console.log("Login Failed!", error.code);
-            $scope.loginMessage = error.code;
+            switch (error.code) {
+              case "INVALID_EMAIL":
+                $scope.loginMessage = "The specified user account email is invalid."
+                break;
+              case "INVALID_PASSWORD":
+                $scope.loginMessage = "The specified user account password is incorrect."
+                break;
+              case "INVALID_USER":
+                $scope.loginMessage = "The specified user account does not exist."
+                break;
+              default:
+                $scope.loginMessage = "Error logging user in:";
+            }
             $scope.$apply()
           } else {
             console.log("Authenticated successfully with payload:", authData);
@@ -29,7 +41,19 @@ angular.module('starter.controllers')
         }, function(error, authData) {
           if (error) {
             console.log("Error creating user:", error.code);
-            $scope.loginMessage = error.code;
+            switch (error.code) {
+              case "EMAIL_TAKEN":
+                $scope.loginMessage = "The email has already been taken."
+                break;
+              case "INVALID_PASSWORD":
+                $scope.loginMessage = "The specified user account password is incorrect."
+                break;
+              case "INVALID_USER":
+                $scope.loginMessage = "The specified user account does not exist."
+                break;
+              default:
+                $scope.loginMessage = error.code;
+            }
             $scope.$apply()
           } else {
             console.log("Successfully created user account with uid:", authData.uid);
