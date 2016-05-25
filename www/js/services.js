@@ -14,6 +14,10 @@ angular.module('starter.services', [])
 
   var locations = $rootScope.locations;
 
+  this.ref = function() {
+    return firebase.database().ref('locations');
+  };
+
  this.all = function() {
     return locations;
   };
@@ -61,7 +65,11 @@ angular.module('starter.services', [])
 
 
   var user = $rootScope.user;
- 
+
+  this.ref = function() {
+    return firebase.database().ref('users/' + userId);
+  };
+
   this.get = function() {
     return user;
   };

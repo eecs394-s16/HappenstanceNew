@@ -39,7 +39,7 @@ angular.module('starter.controllers')
               name: $scope.formData.email.replace(/@.*/, '')
           });
           $state.go('home');
-        });        
+        });
       };
 
 
@@ -64,8 +64,8 @@ angular.module('starter.controllers')
                 $scope.loginMessage = "Error logging user in:";
             }
             $scope.$apply();
-            
-            
+
+
             // [END_EXCLUDE]
           }).then(function(authData) {
             console.log("signed in as " + authData.uid);

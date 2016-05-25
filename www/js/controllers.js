@@ -12,7 +12,9 @@ angular.module('starter.controllers', ['ui.router'])
     console.log(user);
   });
 
-  
+  $scope.markers = [];
+
+
 
   // hardcode data for locations
       var location1 = {
@@ -56,36 +58,83 @@ angular.module('starter.controllers', ['ui.router'])
     };
 
     // $scope.locations = [location1, location2, location3];
-    $scope.locations = [location1, location2, location3];
-
 
   $scope.mapCreated = function(map) {
+    console.log($scope.locations);
     $scope.map = map;
 
     $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
     $scope.map.setCenter($scope.myCenter);
     $scope.map.setZoom(14);
 
-    $scope.locations.forEach(function(location) {
-      var marker = new google.maps.Marker({
-      position: location.loc
-      });
-      marker.setMap($scope.map);
+    updateLocations();
 
-       // add marker event listener
-      google.maps.event.addListener(marker,'click', function() {
-        // alert("modal is openning!");
-      //   var modalView = new supersonic.ui.View("example#modal");
-        // alert("modal is going to show up!");
-        window.localStorage.setItem("clicked_location", JSON.stringify(location));
-        $("#myModal").modal();
-      // // supersonic.ui.modal.show(modalView, $rootScope.options);
-      // });
-      });
+
+    Locations.ref().on('value', function(snapshot) {
+      console.log("locations changed!");
+      updateLocations();
     });
 
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
   };
+
+  function updateLocations() {
+    Locations.all().$loaded().then(function(locations) {
+        deleteMarkers();
+
+        $scope.locations = locations;
+        $scope.locations.forEach(function(location) {
+          console.log("add marker for: ");
+          console.log(location);
+          addMarker(location);
+        });
+        showMarkers();
+    });
+
+  };
+
+  // Adds a marker to the map and push to the array.
+  function addMarker(location) {
+    var marker = new google.maps.Marker({
+      position: location.loc,
+    });
+    // add marker event listener
+    google.maps.event.addListener(marker,'click', function() {
+      // alert("modal is openning!");
+    //   var modalView = new supersonic.ui.View("example#modal");
+      // alert("modal is going to show up!");
+      window.localStorage.setItem("clicked_location", JSON.stringify(location));
+      $("#myModal").modal();
+    // // supersonic.ui.modal.show(modalView, $rootScope.options);
+    // });
+    });
+    $scope.markers.push(marker);
+  }
+
+  // Sets the map on all markers in the array.
+  function setMapOnAll(map) {
+    for (var i = 0; i < $scope.markers.length; i++) {
+      $scope.markers[i].setMap(map);
+    }
+  }
+
+  // Removes the markers from the map, but keeps them in the array.
+  function clearMarkers() {
+    setMapOnAll(null);
+  }
+
+  // Shows any markers currently in the array.
+  function showMarkers() {
+    setMapOnAll($scope.map);
+  }
+
+  // Deletes all markers in the array by removing references to them.
+  function deleteMarkers() {
+    clearMarkers();
+    $scope.markers = [];
+  }
+
+
 
 
 
