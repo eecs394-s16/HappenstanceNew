@@ -216,3 +216,11 @@ input[type=range]:focus::-ms-fill-upper {
  margin-right: auto;
  margin-bottom: 20px;
 }
+.modal-content {
+  border: 3px solid #fd4f0a;
+}
+.user-name {
+  text-align: center;
+  color: #fd4f0a;
+  font-size:20px;
+}
