@@ -10,7 +10,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
 .config(function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/home');
 
     $stateProvider
 
