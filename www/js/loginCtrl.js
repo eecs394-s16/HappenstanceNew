@@ -36,8 +36,13 @@ angular.module('starter.controllers')
           console.log(authData);
           firebase.database().ref('users/' + authData.uid).set({
               email: $scope.formData.email,
-              name: $scope.formData.email.replace(/@.*/, '')
+              name: $scope.formData.email.replace(/@.*/, ''),
+              historyList: [],
+              historyTime: [],
+              favoritesList: [],
+              favoritesTime: []
           });
+          console.log('saved');
           $state.go('home');
         });
       };

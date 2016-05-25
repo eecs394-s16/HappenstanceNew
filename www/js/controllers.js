@@ -188,7 +188,7 @@ angular.module('starter.controllers', ['ui.router'])
     });
   };
 
-    //*******************************************
+  //*******************************************
   //***      Geofence **********************
   //
   document.addEventListener('deviceready', function () {
@@ -245,7 +245,7 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 // Modal controller
-.controller('ModalCtrl', function($scope) {
+.controller('ModalCtrl', function($scope, Locations, User) {
   var video = document.getElementById("myvideo");
   var audio = document.getElementById("myaudio");
 
@@ -286,6 +286,11 @@ angular.module('starter.controllers', ['ui.router'])
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
     $scope.$apply();
     $scope.autoplay();
+
+    console.log('id');
+    console.log($scope.location.$id);
+    // console.log(video.currentTime);
+
   });
 
   // filter for related storis
@@ -331,7 +336,38 @@ angular.module('starter.controllers', ['ui.router'])
   $scope.stopPlay = function() {
     video.pause();
     audio.pause();
+    $scope.addToHistory();
   };
+
+  $scope.addToHistory = function() {
+    console.log(audio.duration);
+    console.log(video.duration);
+    console.log(audio.currentTime/audio.duration);
+    console.log(video.currentTime/video.duration);
+    console.log('id');
+    console.log($scope.location.$id);
+    if (isNaN(audio.duration) == false) {
+      var percentage = audio.currentTime/audio.duration
+    }
+    else if (isNaN(video.duration) == false) {
+      var percentage = video.currentTime/video.duration
+    }
+    console.log(percentage);
+    // var newVideo = {
+    //   id: $scope.location.$id,
+    //   percentage: percentage
+    // }
+    $scope.user = User.get();
+    if (typeof $scope.user.historyList == 'undefined') {
+      $scope.user.historyList = [$scope.location.$id];
+      $scope.user.historyTime = [percentage];
+    }
+    else {
+      $scope.user.historyList.push($scope.location.$id);
+      $scope.user.historyTime.push(percentage);              
+    }
+    User.save()
+  }
 
   $(".modal-transparent").on('show.bs.modal', function () {
     console.log(".modal-transparent on 'show.bs.modal'");
@@ -390,6 +426,7 @@ angular.module('starter.controllers', ['ui.router'])
   video.addEventListener("timeupdate", function() {
     // Calculate the slider value
     var value = (100 / video.duration) * video.currentTime;
+    // console.log(video.currentTime);
 
     // Update the slider value
     seekBar.value = value;
@@ -438,6 +475,8 @@ angular.module('starter.controllers', ['ui.router'])
   audio.addEventListener("timeupdate", function() {
     // Calculate the slider value
     var value = (100 / audio.duration) * audio.currentTime;
+
+    // console.log(audio.currentTime);
 
     // Update the slider value
     seekBarAudio.value = value;
