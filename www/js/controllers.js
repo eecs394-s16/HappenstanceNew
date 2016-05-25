@@ -1,6 +1,19 @@
 angular.module('starter.controllers', ['ui.router'])
 
-.controller('MapCtrl', function($scope, $ionicLoading) {
+.controller('MapCtrl', function($scope, $ionicLoading, Locations, User) {
+  // example usage of services
+  Locations.all().$loaded().then(function(locations) {
+    console.log("all locations: ");
+    console.log(locations);
+  });
+
+  User.get().$loaded().then(function(user) {
+    console.log("current user: ");
+    console.log(user);
+  });
+
+  
+
   // hardcode data for locations
       var location1 = {
       name : 'Green Door Tavern',
@@ -42,6 +55,7 @@ angular.module('starter.controllers', ['ui.router'])
 
     };
 
+    // $scope.locations = [location1, location2, location3];
     $scope.locations = [location1, location2, location3];
 
 
