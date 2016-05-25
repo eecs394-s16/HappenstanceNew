@@ -83,7 +83,7 @@
               </div>
 
               <a class="item item-avatar" ng-repeat="relatedLoc in locations | filter: related | orderBy: '-counter' | limitTo: 3" ng-click="openRelated(relatedLoc)" ;="">
-                <img src="{{relatedLoc.imageUrl}}">
+                <img ng-src="{{relatedLoc.imageUrl}}">
                 <h2>{{relatedLoc.name}}</h2>
                 <p>{{relatedLoc.description}}</p>
               </a>
