@@ -77,6 +77,8 @@ angular.module('starter.controllers', ['ui.router'])
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
     
+    //reloads the page if $scope.map doesn't exist
+    //fixes the map not showing up bug
     function reload() {
       if (typeof $scope.map == "undefined") {
         window.location.reload(false);
