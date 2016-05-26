@@ -20,26 +20,26 @@ angular.module('starter.controllers', ['ui.router'])
       var location1 = {
       name : 'Green Door Tavern',
       videoUrl :null,
-      audioUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/Janet+Fuller-+Speakeasies_Abridged_mixdown.mp3",
+      audioUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FJanet%20Fuller-%20Speakeasies_Abridged_mixdown.mp3?alt=media&token=acec5941-a36f-43e7-b74c-4ddd0ce17cb3",
       loc : {
         lat : 41.894854,
         lng : -87.6396137
       },
       description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
-      imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg",
+      imageUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FGreen%20Door%20Tavern.jpg?alt=media&token=46df70a2-ab71-46ed-ab89-5c582ff53450",
       tags: ['entertainment', 'bar']
     };
 
     var location2 = {
       name : ' International Museum of Surgical Science',
       videoUrl :null,
-      audioUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/Surgical+Museum_Abridged_mixdown.mp3",
+      audioUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FSurgical%20Museum_Abridged_mixdown.mp3?alt=media&token=7c13e909-c137-4f9e-a66b-a95db0db213e",
       loc : {
         lat : 41.9103997,
         lng : -87.6276496
       },
       description : 'Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say “I do.”',
-      imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/surgical_museum__1__720.jpg",
+      imageUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FSurgical%20Museum%20(1).JPG?alt=media&token=99af1b19-0106-4d8e-8a8d-afeb54b23ab0",
       tags: ['entertainment', 'science']
     };
 
@@ -57,26 +57,89 @@ angular.module('starter.controllers', ['ui.router'])
 
     };
 
+
     // $scope.locations = [location1, location2, location3];
 
-  $scope.mapCreated = function(map) {
-    console.log($scope.locations);
-    $scope.map = map;
+  // $scope.mapCreated = function(map) {
+  //   console.log($scope.locations);
+  //   $scope.map = map;
 
-    $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
-    $scope.map.setCenter($scope.myCenter);
-    $scope.map.setZoom(14);
+  //   $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
+  //   $scope.map.setCenter($scope.myCenter);
+  //   $scope.map.setZoom(14);
 
-    updateLocations();
+  //   updateLocations();
 
 
-    Locations.ref().on('value', function(snapshot) {
-      console.log("locations changed!");
-      updateLocations();
-    });
+  //   Locations.ref().on('value', function(snapshot) {
+  //     console.log("locations changed!");
+  //     updateLocations();
+  //   });
 
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  //   navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  // };
+   $scope.init = function() {
+        console.log("this ran!")
+        var myLatlng = new google.maps.LatLng(41.904373,-87.6336537);
+        var mapOptions = {
+          center: myLatlng,
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        // $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
+        // $scope.map.setCenter($scope.myCenter);
+        // $scope.map.setZoom(14);
+
+        updateLocations();
+
+
+        Locations.ref().on('value', function(snapshot) {
+          console.log("locations changed!");
+          updateLocations();
+        });
+
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    };
+    
+  //reloads the page if $scope.map doesn't exist
+  //fixes the map not showing up bug
+  function reload() {
+    if (typeof $scope.map == "undefined") {
+      window.location.reload(false);
+    }
   };
+
+  setTimeout(function() {reload()}, 50);
+
+  var onSuccess = function(position) {
+    var icon = {
+       url: 'http://www.stfx.ca/sites/all/themes/stfx/js/virtualtour-SC/google-st-view/google-streetview-icon.png'
+    };
+
+    var marker = new google.maps.Marker({
+       position: {lat: position.coords.latitude, lng: position.coords.longitude},
+       icon: icon
+    });
+    marker.setMap($scope.map);
+
+      console.log('Latitude: '          + position.coords.latitude          + '\n' +
+            'Longitude: '         + position.coords.longitude         + '\n' +
+            'Altitude: '          + position.coords.altitude          + '\n' +
+            'Accuracy: '          + position.coords.accuracy          + '\n' +
+            'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+            'Heading: '           + position.coords.heading           + '\n' +
+            'Speed: '             + position.coords.speed             + '\n' +
+            'Timestamp: '         + position.timestamp                + '\n');
+  };
+
+  // onError Callback receives a PositionError object
+  //
+  function onError(error) {
+      alert('code: '    + error.code    + '\n' +
+            'message: ' + error.message + '\n');
+  }
+
 
   function updateLocations() {
     Locations.all().$loaded().then(function(locations) {
@@ -135,37 +198,7 @@ angular.module('starter.controllers', ['ui.router'])
   }
 
 
-
-
-
-
-  var onSuccess = function(position) {
-    var icon = {
-       url: 'http://www.stfx.ca/sites/all/themes/stfx/js/virtualtour-SC/google-st-view/google-streetview-icon.png'
-    };
-
-    var marker = new google.maps.Marker({
-       position: {lat: position.coords.latitude, lng: position.coords.longitude},
-       icon: icon
-    });
-    marker.setMap($scope.map);
-
-      console.log('Latitude: '          + position.coords.latitude          + '\n' +
-            'Longitude: '         + position.coords.longitude         + '\n' +
-            'Altitude: '          + position.coords.altitude          + '\n' +
-            'Accuracy: '          + position.coords.accuracy          + '\n' +
-            'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-            'Heading: '           + position.coords.heading           + '\n' +
-            'Speed: '             + position.coords.speed             + '\n' +
-            'Timestamp: '         + position.timestamp                + '\n');
-  };
-
-  // onError Callback receives a PositionError object
-  //
-  function onError(error) {
-      alert('code: '    + error.code    + '\n' +
-            'message: ' + error.message + '\n');
-  }
+   
 
 
   $scope.centerOnMe = function () {
@@ -278,19 +311,14 @@ angular.module('starter.controllers', ['ui.router'])
   //
   $('#myModal').on('show.bs.modal', function() {
     console.log("modal showing!");
-    $scope.$apply(function(){
-      $scope.notFinished = true;
-    });
-    // console.log("notFinished at beginning of modal")
-    // console.log($scope.notFinished)
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
     $scope.$apply();
     $scope.autoplay();
 
+
     console.log('id');
     console.log($scope.location.$id);
     // console.log(video.currentTime);
-
   });
 
   // filter for related storis
@@ -380,10 +408,7 @@ angular.module('starter.controllers', ['ui.router'])
     $(".modal-backdrop").addClass("modal-backdrop-transparent");
   });
 
-  // Status
-  // $scope.notFinished = true;
-  // console.log("notFinished being called")
-  // console.log($scope.notFinished)
+
 
   // Buttons
   var playButton = document.getElementById("play-pause");
@@ -434,11 +459,6 @@ angular.module('starter.controllers', ['ui.router'])
 
   video.addEventListener('ended',gotoRelated,false);
   function gotoRelated() {
-    $scope.$apply(function(){
-      $scope.notFinished = false;
-    });
-    // console.log("notFinished at end of modal")
-    // console.log($scope.notFinished)
     console.log("ended! going to relatedStories");
     var footerOffeset = $('#relatedStories').offset().top;
     console.log("footer offset: " + footerOffeset);
