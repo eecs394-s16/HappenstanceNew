@@ -284,6 +284,9 @@ angular.module('starter.controllers', ['ui.router'])
     // console.log("notFinished at beginning of modal")
     // console.log($scope.notFinished)
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
+    $scope.map.setCenter($scope.location.loc);
+    $scope.map.setZoom(14);
+
     $scope.$apply();
     $scope.autoplay();
 
