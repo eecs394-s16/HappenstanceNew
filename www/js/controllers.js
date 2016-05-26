@@ -1,18 +1,18 @@
 angular.module('starter.controllers', ['ui.router'])
 
-.controller('MapCtrl', function($scope, $ionicLoading, Locations, User) {
-  // example usage of services
-  Locations.all().$loaded().then(function(locations) {
-    console.log("all locations: ");
-    console.log(locations);
-  });
+.controller('MapCtrl', function($scope, $ionicLoading) {
+  // // example usage of services
+  // Locations.all().$loaded().then(function(locations) {
+  //   console.log("all locations: ");
+  //   console.log(locations);
+  // });
 
-  User.get().$loaded().then(function(user) {
-    console.log("current user: ");
-    console.log(user);
-  });
+  // User.get().$loaded().then(function(user) {
+  //   console.log("current user: ");
+  //   console.log(user);
+  // });
 
-  $scope.markers = [];
+  // $scope.markers = [];
 
 
 
@@ -20,26 +20,26 @@ angular.module('starter.controllers', ['ui.router'])
       var location1 = {
       name : 'Green Door Tavern',
       videoUrl :null,
-      audioUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/Janet+Fuller-+Speakeasies_Abridged_mixdown.mp3",
+      audioUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FJanet%20Fuller-%20Speakeasies_Abridged_mixdown.mp3?alt=media&token=acec5941-a36f-43e7-b74c-4ddd0ce17cb3",
       loc : {
         lat : 41.894854,
         lng : -87.6396137
       },
       description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
-      imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/green_door_tavern.jpg",
+      imageUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FGreen%20Door%20Tavern.jpg?alt=media&token=46df70a2-ab71-46ed-ab89-5c582ff53450",
       tags: ['entertainment', 'bar']
     };
 
     var location2 = {
       name : ' International Museum of Surgical Science',
       videoUrl :null,
-      audioUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/Surgical+Museum_Abridged_mixdown.mp3",
+      audioUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FSurgical%20Museum_Abridged_mixdown.mp3?alt=media&token=7c13e909-c137-4f9e-a66b-a95db0db213e",
       loc : {
         lat : 41.9103997,
         lng : -87.6276496
       },
       description : 'Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say “I do.”',
-      imageUrl : "https://s3-us-west-2.amazonaws.com/audio.happenstance/surgical_museum__1__720.jpg",
+      imageUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FSurgical%20Museum%20(1).JPG?alt=media&token=99af1b19-0106-4d8e-8a8d-afeb54b23ab0",
       tags: ['entertainment', 'science']
     };
 
@@ -57,87 +57,50 @@ angular.module('starter.controllers', ['ui.router'])
 
     };
 
-    // $scope.locations = [location1, location2, location3];
+    $scope.locations = [location1, location2, location3];
 
-  $scope.mapCreated = function(map) {
-    console.log($scope.locations);
-    $scope.map = map;
+    $scope.init = function() {
+        console.log("this ran!")
+        var myLatlng = new google.maps.LatLng(41.904373,-87.6336537);
+        var mapOptions = {
+          center: myLatlng,
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
+        // $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
+        // $scope.map.setCenter($scope.myCenter);
+        // $scope.map.setZoom(14);
 
-    $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
-    $scope.map.setCenter($scope.myCenter);
-    $scope.map.setZoom(14);
-
-    updateLocations();
-
-
-    Locations.ref().on('value', function(snapshot) {
-      console.log("locations changed!");
-      updateLocations();
-    });
-
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  };
-
-  function updateLocations() {
-    Locations.all().$loaded().then(function(locations) {
-        deleteMarkers();
-
-        $scope.locations = locations;
         $scope.locations.forEach(function(location) {
-          console.log("add marker for: ");
-          console.log(location);
-          addMarker(location);
-        });
-        showMarkers();
-    });
+          var marker = new google.maps.Marker({
+          position: location.loc
+          });
+          marker.setMap($scope.map);
 
-  };
+           // add marker event listener
+          google.maps.event.addListener(marker,'click', function() {
+            // alert("modal is openning!");
+          //   var modalView = new supersonic.ui.View("example#modal");
+            // alert("modal is going to show up!");
+            window.localStorage.setItem("clicked_location", JSON.stringify(location));
+            $("#myModal").modal();
+          // // supersonic.ui.modal.show(modalView, $rootScope.options);
+          // });
+          });
+      });
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    };
+    
+    //reloads the page if $scope.map doesn't exist
+    //fixes the map not showing up bug
+    function reload() {
+      if (typeof $scope.map == "undefined") {
+        window.location.reload(false);
+      }
+    };
 
-  // Adds a marker to the map and push to the array.
-  function addMarker(location) {
-    var marker = new google.maps.Marker({
-      position: location.loc,
-    });
-    // add marker event listener
-    google.maps.event.addListener(marker,'click', function() {
-      // alert("modal is openning!");
-    //   var modalView = new supersonic.ui.View("example#modal");
-      // alert("modal is going to show up!");
-      window.localStorage.setItem("clicked_location", JSON.stringify(location));
-      $("#myModal").modal();
-    // // supersonic.ui.modal.show(modalView, $rootScope.options);
-    // });
-    });
-    $scope.markers.push(marker);
-  }
-
-  // Sets the map on all markers in the array.
-  function setMapOnAll(map) {
-    for (var i = 0; i < $scope.markers.length; i++) {
-      $scope.markers[i].setMap(map);
-    }
-  }
-
-  // Removes the markers from the map, but keeps them in the array.
-  function clearMarkers() {
-    setMapOnAll(null);
-  }
-
-  // Shows any markers currently in the array.
-  function showMarkers() {
-    setMapOnAll($scope.map);
-  }
-
-  // Deletes all markers in the array by removing references to them.
-  function deleteMarkers() {
-    clearMarkers();
-    $scope.markers = [];
-  }
-
-
-
-
-
+    setTimeout(function() {reload()}, 50);
 
   var onSuccess = function(position) {
     var icon = {
@@ -278,19 +241,9 @@ angular.module('starter.controllers', ['ui.router'])
   //
   $('#myModal').on('show.bs.modal', function() {
     console.log("modal showing!");
-    $scope.$apply(function(){
-      $scope.notFinished = true;
-    });
-    // console.log("notFinished at beginning of modal")
-    // console.log($scope.notFinished)
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
     $scope.$apply();
     $scope.autoplay();
-
-    console.log('id');
-    console.log($scope.location.$id);
-    // console.log(video.currentTime);
-
   });
 
   // filter for related storis
@@ -340,12 +293,6 @@ angular.module('starter.controllers', ['ui.router'])
   };
 
   $scope.addToHistory = function() {
-    console.log(audio.duration);
-    console.log(video.duration);
-    console.log(audio.currentTime/audio.duration);
-    console.log(video.currentTime/video.duration);
-    console.log('id');
-    console.log($scope.location.$id);
     if (isNaN(audio.duration) == false) {
       var percentage = audio.currentTime/audio.duration
     }
@@ -380,10 +327,7 @@ angular.module('starter.controllers', ['ui.router'])
     $(".modal-backdrop").addClass("modal-backdrop-transparent");
   });
 
-  // Status
-  // $scope.notFinished = true;
-  // console.log("notFinished being called")
-  // console.log($scope.notFinished)
+
 
   // Buttons
   var playButton = document.getElementById("play-pause");
@@ -434,11 +378,6 @@ angular.module('starter.controllers', ['ui.router'])
 
   video.addEventListener('ended',gotoRelated,false);
   function gotoRelated() {
-    $scope.$apply(function(){
-      $scope.notFinished = false;
-    });
-    // console.log("notFinished at end of modal")
-    // console.log($scope.notFinished)
     console.log("ended! going to relatedStories");
     var footerOffeset = $('#relatedStories').offset().top;
     console.log("footer offset: " + footerOffeset);
