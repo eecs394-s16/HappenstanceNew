@@ -212,14 +212,22 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 /*profile css*/
-.modal-body img {
+.user-image {
+  width:100px;
+  border-radius:50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+}
+/*.modal-body img {
  width:100px;
  border-radius:50%;
  display: block;
  margin-left: auto;
  margin-right: auto;
  margin-bottom: 20px;
-}
+}*/
 .modal-content {
   border: 3px solid #fd4f0a;
 }
@@ -227,4 +235,8 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
   color: #fd4f0a;
   font-size:20px;
+}
+.history {
+  text-align: center;
+  color:#fd4f0a;
 }
