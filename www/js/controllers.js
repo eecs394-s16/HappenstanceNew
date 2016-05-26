@@ -44,7 +44,7 @@ angular.module('starter.controllers', ['ui.router'])
 
     $scope.locations = [location1, location2, location3];
 
-    $scope.initialize = function() {
+    $scope.init = function() {
         console.log("this ran!")
         var myLatlng = new google.maps.LatLng(41.904373,-87.6336537);
         var mapOptions = {
@@ -74,82 +74,16 @@ angular.module('starter.controllers', ['ui.router'])
           // });
           });
       });
-      // navigator.geolocation.getCurrentPosition(onSuccess, onError);
+      navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
-        
-    setTimeout(initiate(), 3000);
-    function initiate() {
-      if(typeof $scope.map == "undefined") {
-        $scope.initialize()
-      };
+    
+    function reload() {
+      if (typeof $scope.map == "undefined") {
+        window.location.reload(false);
+      }
     };
-    // function initiate() {
-    //   if(typeof $scope.map == "undefined"){
-    //     var myLatlng = new google.maps.LatLng(41.904373,-87.6336537);
-    //     var mapOptions = {
-    //       center: myLatlng,
-    //       zoom: 14,
-    //       mapTypeId: google.maps.MapTypeId.ROADMAP
-    //     };
-    //     $scope.map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    //     // $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
-    //     // $scope.map.setCenter($scope.myCenter);
-    //     // $scope.map.setZoom(14);
 
-    //     $scope.locations.forEach(function(location) {
-    //       var marker = new google.maps.Marker({
-    //       position: location.loc
-    //       });
-    //       marker.setMap($scope.map);
-
-    //        // add marker event listener
-    //       google.maps.event.addListener(marker,'click', function() {
-    //         // alert("modal is openning!");
-    //       //   var modalView = new supersonic.ui.View("example#modal");
-    //         // alert("modal is going to show up!");
-    //         window.localStorage.setItem("clicked_location", JSON.stringify(location));
-    //         $("#myModal").modal();
-    //       // // supersonic.ui.modal.show(modalView, $rootScope.options);
-    //       // });
-    //       });
-    //     });
-    //     // navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    //   }
-    //   else {
-    //     console.log(typeof $scope.map)
-    //   } 
-    // };
-
-  // $scope.mapCreated = function(map) {
-  //   $scope.map = map;
-
-  //   $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
-  //   $scope.map.setCenter($scope.myCenter);
-  //   $scope.map.setZoom(14);
-
-  //   $scope.locations.forEach(function(location) {
-  //     var marker = new google.maps.Marker({
-  //     position: location.loc
-  //     });
-  //     marker.setMap($scope.map);
-
-  //      // add marker event listener
-  //     google.maps.event.addListener(marker,'click', function() {
-  //       // alert("modal is openning!");
-  //     //   var modalView = new supersonic.ui.View("example#modal");
-  //       // alert("modal is going to show up!");
-  //       window.localStorage.setItem("clicked_location", JSON.stringify(location));
-  //       $("#myModal").modal();
-  //     // // supersonic.ui.modal.show(modalView, $rootScope.options);
-  //     // });
-  //     });
-  //   });
-
-  //   navigator.geolocation.getCurrentPosition(onSuccess, onError);
-  // };
-
-
-
+    setTimeout(function() {reload()}, 50);
 
   var onSuccess = function(position) {
     var icon = {
