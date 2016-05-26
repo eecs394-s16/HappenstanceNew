@@ -36,10 +36,15 @@ angular.module('starter.controllers')
           console.log(authData);
           firebase.database().ref('users/' + authData.uid).set({
               email: $scope.formData.email,
-              name: $scope.formData.email.replace(/@.*/, '')
+              name: $scope.formData.email.replace(/@.*/, ''),
+              historyList: [],
+              historyTime: [],
+              favoritesList: [],
+              favoritesTime: []
           });
+          console.log('saved');
           $state.go('home');
-        });        
+        });
       };
 
 
@@ -64,8 +69,8 @@ angular.module('starter.controllers')
                 $scope.loginMessage = "Error logging user in:";
             }
             $scope.$apply();
-            
-            
+
+
             // [END_EXCLUDE]
           }).then(function(authData) {
             console.log("signed in as " + authData.uid);
