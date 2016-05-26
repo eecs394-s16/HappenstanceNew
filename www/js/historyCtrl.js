@@ -27,7 +27,7 @@ angular.module('starter.controllers')
       
 
   $scope.openHistory = function(location) {
-    window.localStorage.setItem("location", JSON.stringify(location));
+    window.localStorage.setItem("clicked_location", JSON.stringify(location));
     $("#myModal2").modal("hide");
     $("#myModal1").modal("hide");
     $("#myModal").modal();

@@ -366,8 +366,17 @@ angular.module('starter.controllers', ['ui.router'])
       $scope.user.historyTime = [percentage];
     }
     else {
-      $scope.user.historyList.push($scope.location.$id);
-      $scope.user.historyTime.push(percentage);              
+      var added = false;
+      for (var i = 0; i < $scope.user.historyList.length; i++) {
+        if ($scope.user.historyList[i] === $scope.location.$id) {
+          added = true;
+        }
+      }
+      if (!added) {
+        $scope.user.historyList.push($scope.location.$id);
+        $scope.user.historyTime.push(percentage);    
+      }
+                
     }
     User.save()
   }
