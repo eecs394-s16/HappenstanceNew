@@ -4,7 +4,9 @@
     </ion-header-bar>
 
     <ion-content scroll="false">
-      <map id="googleMap" on-create="mapCreated(map)"></map>
+      
+      <div id="map" data-tap-disabled="true" ng-init="init()"></div>
+      
       <div class="parent">
         <div class="child">
           <div class="button-bar tab-buttons">
@@ -32,7 +34,7 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
             <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
-            <h4 class="modal-title">{{location.name}}
+            <h4 class="modal-title">{{location.name}}</h4>
             <i class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="toggle3=true"></i>
             <i class ="fa fa-star-o fav-icon" ng-show="toggle3"  ng-click="toggle3=false" style="color:#ffa500"></i>
           </h4>
@@ -83,7 +85,7 @@
               </div>
 
               <a class="item item-avatar" ng-repeat="relatedLoc in locations | filter: related | orderBy: '-counter' | limitTo: 3" ng-click="openRelated(relatedLoc)" ;="">
-                <img src="{{relatedLoc.imageUrl}}">
+                <img ng-src="{{relatedLoc.imageUrl}}">
                 <h2>{{relatedLoc.name}}</h2>
                 <p>{{relatedLoc.description}}</p>
               </a>
