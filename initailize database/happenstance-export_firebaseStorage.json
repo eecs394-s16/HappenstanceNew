@@ -1,0 +1,35 @@
+{
+  "-KI_h3_e6h-PcBgYNYI4" : {
+    "audioUrl" : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FJanet%20Fuller-%20Speakeasies_Abridged_mixdown.mp3?alt=media&token=acec5941-a36f-43e7-b74c-4ddd0ce17cb3",
+    "description" : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
+    "imageUrl" : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FGreen%20Door%20Tavern.jpg?alt=media&token=46df70a2-ab71-46ed-ab89-5c582ff53450",
+    "loc" : {
+      "lat" : 41.894854,
+      "lng" : -87.6396137
+    },
+    "name" : "Green Door Tavern",
+    "tags" : [ "entertainment", "bar" ]
+  },
+  "-KI_h3_rHmOZaUFagYfE" : {
+    "audioUrl" : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FSurgical%20Museum_Abridged_mixdown.mp3?alt=media&token=7c13e909-c137-4f9e-a66b-a95db0db213e",
+    "description" : "Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say \"I do\".",
+    "imageUrl" : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FSurgical%20Museum%20(1).JPG?alt=media&token=99af1b19-0106-4d8e-8a8d-afeb54b23ab0",
+    "loc" : {
+      "lat" : 41.894854,
+      "lng" : -87.6276496
+    },
+    "name" : " International Museum of Surgical Science",
+    "tags" : [ "entertainment", "science" ]
+  },
+  "-KI_h3_sNuDx5iz5X2Bn" : {
+    "description" : "Northwestern University is a private research university with campuses in Evanston and Chicago in Illinois, United States, as well as Doha, Qatar.",
+    "imageUrl" : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
+    "loc" : {
+      "lat" : 42.0580446,
+      "lng" : -87.677041
+    },
+    "name" : "Northwestern University",
+    "tags" : [ "science", "school" ],
+    "videoUrl" : "http://www.w3schools.com/html/mov_bbb.mp4"
+  }
+}

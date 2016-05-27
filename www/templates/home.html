@@ -4,9 +4,9 @@
     </ion-header-bar>
 
     <ion-content scroll="false">
-      
+
       <div id="map" data-tap-disabled="true" ng-init="init()"></div>
-      
+
       <div class="parent">
         <div class="child">
           <div class="button-bar tab-buttons">
@@ -134,7 +134,19 @@
             <li class="list-group-item">Vestibulum at eros</li>
           </ul-->
           <div class="list" id="historyList">
-              <a class="item item-avatar" ng-repeat="location in locationList" ng-click="openHistory(location)">
+              <div class="item item-divider">
+                Unfinished
+              </div>
+              <a class="item item-avatar" ng-repeat="location in locationList | filter: unfinished" ng-click="openHistory(location)">
+                <img src="{{location.imageUrl}}">
+                <h2>{{location.name}}</h2>
+                <p>{{location.description}}</p>
+              </a>
+
+              <div class="item item-divider">
+                Watched
+              </div>
+              <a class="item item-avatar" ng-repeat="location in locationList | filter: watched" ng-click="openHistory(location)">
                 <img src="{{location.imageUrl}}">
                 <h2>{{location.name}}</h2>
                 <p>{{location.description}}</p>

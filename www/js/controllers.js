@@ -80,7 +80,7 @@ angular.module('starter.controllers', ['ui.router'])
   // };
    $scope.init = function() {
         console.log("this ran!")
-        var myLatlng = new google.maps.LatLng(41.904373,-87.6336537);
+        var myLatlng = new google.maps.LatLng(41.8923034,-87.6417088);
         var mapOptions = {
           center: myLatlng,
           zoom: 14,
@@ -101,7 +101,7 @@ angular.module('starter.controllers', ['ui.router'])
 
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
-    
+
   //reloads the page if $scope.map doesn't exist
   //fixes the map not showing up bug
   function reload() {
@@ -198,7 +198,7 @@ angular.module('starter.controllers', ['ui.router'])
   }
 
 
-   
+
 
 
   $scope.centerOnMe = function () {
@@ -398,13 +398,14 @@ angular.module('starter.controllers', ['ui.router'])
       for (var i = 0; i < $scope.user.historyList.length; i++) {
         if ($scope.user.historyList[i] === $scope.location.$id) {
           added = true;
+          $scope.user.historyTime[i] = Math.max($scope.user.historyTime[i], percentage);
         }
       }
       if (!added) {
         $scope.user.historyList.push($scope.location.$id);
-        $scope.user.historyTime.push(percentage);    
+        $scope.user.historyTime.push(percentage);
       }
-                
+
     }
     User.save()
   }

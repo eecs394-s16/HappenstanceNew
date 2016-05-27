@@ -1,0 +1,157 @@
+<!-- Initialize database: open this page on a web browser. Note: only run it once when  setting up the database!-->
+
+<!-- FireBase google login:
+email: nueecs394yellow@gmail.com
+password: facememo-->
+
+<!-- account for AWS S3
+user: nueecs394yellow1@gmail.com
+pass: happenstance-->
+
+<head>
+  <!-- AngularJS -->
+
+ <script src="https://www.gstatic.com/firebasejs/3.0.2/firebase.js"></script>
+</head>
+
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDF6QPjSNHiO9kXHiOOSwkyMIkRK9lw6v8",
+      authDomain: "happenstance.firebaseapp.com",
+      databaseURL: "https://happenstance.firebaseio.com",
+      storageBucket: "",
+    };
+    firebase.initializeApp(config);
+  </script>
+
+
+<script type="text/javascript">
+  var locationRef = firebase.database().ref().child('locations');
+  // var dataRef = new Firebase("https://happenstance.firebaseio.com/");
+  // var data = $firebaseArray(locationRef);
+
+  var location1 = {
+      name : 'Green Door Tavern',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Janet+Fuller-+Speakeasies_Abridged_mixdown.mp3",
+      loc : {
+        lat : 41.985632,
+        lng : -87.806928
+      },
+      description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Green+Door+Tavern.jpg",
+      tags: ['entertainment', 'bar', 'river north']
+
+    };
+
+    var location2 = {
+      name : ' International Museum of Surgical Science',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Surgical+Museum_Abridged_mixdown.mp3",
+      loc : {
+        lat : 41.9879254,
+        lng : -87.8093869
+      },
+      description : 'Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say “I do.”',
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Surgical+Museum.JPG",
+      tags: ['entertainment', 'science', 'river north']
+
+    };
+    var location3 = {
+      name : 'Northwestern University',
+      videoUrl :"http://www.w3schools.com/html/mov_bbb.mp4",
+      audioUrl : null,
+      loc : {
+        lat : 41.9865856,
+        lng : -87.8083999
+      },
+      description : "Northwestern University is a private research university with campuses in Evanston and Chicago in Illinois, United States, as well as Doha, Qatar.",
+      imageUrl : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
+      tags: ['science', 'school', 'river north']
+
+    };
+
+
+     var location4 = {
+      name : 'Flaming saganaki',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Janet+Fuller-+Saganaki_mixdown.mp3",
+      loc : {
+        lat : 41.9865856,
+        lng : -87.8083999
+      },
+      description : "Flaming saganaki can be found on nearly every Greektown menu. But which restaurant invented it? Learn more from our resident food expert Janet Fuller.",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Flaming+Saganaki.jpg",
+      tags: ['entertainment', 'restaurant', 'river north']
+
+    };
+
+   var location5 = {
+      name : 'George Wendt',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/George+Wendt_mixdown.mp3",
+      loc : {
+        lat : 41.9865856,
+        lng : -87.8083999
+      },
+      description : "Before he became a staple at the bar where everyone knew his name, actor George Wendt experienced his first major career setback at Second City.",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/George_Wendt_1989.jpg",
+      tags: ['entertainment', 'history', 'river north']
+
+    };
+
+    var location6 = {
+      name : 'Manual Cinema',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Manual+Cinema_mixdown.mp3",
+      loc : {
+        lat : 41.9865856,
+        lng : -87.8083999
+      },
+      description : "When you think shadow puppets, do you think of Chicago’s bar scene? Probably not. But this is actually where Manual Cinema got its start",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Manual+Cinema.jpg",
+      tags: ['entertainment', 'history', 'science', 'river north']
+
+    };
+
+    var location7 = {
+      name : 'Lettuce Entertain',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Janet+Fuller-+Lettuce+Entertain+You_mixdown.mp3",
+      loc : {
+        lat : 41.9865856,
+        lng : -87.8083999
+      },
+      description : "When you think shadow puppets, do you think of Chicago’s bar scene? Probably not. But this is actually where Manual Cinema got its start",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Lettuce+Entertain+You+Logo.png",
+      tags: ['entertainment', 'restaurant', 'river north']
+
+    };
+
+
+
+
+
+
+    // locationRef.push(location1);
+    // locationRef.push(location2);
+    // locationRef.push(location3);
+    locationRef.push(location4);
+    locationRef.push(location5);
+    locationRef.push(location6);
+    locationRef.push(location7);
+    // data.$add(location2);
+    // data.$add(location3);
+
+
+
+
+
+
+    console.log("database initialized!");
+
+
+
+
+</script>
