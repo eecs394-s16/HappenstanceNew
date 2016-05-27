@@ -230,6 +230,7 @@ input[type=range]:focus::-ms-fill-upper {
 }*/
 .modal-content {
   border: 3px solid #fd4f0a;
+  position:relative;
 }
 .user-name {
   text-align: center;
