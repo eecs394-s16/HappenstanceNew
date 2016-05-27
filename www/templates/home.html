@@ -4,15 +4,15 @@
     </ion-header-bar>
 
     <ion-content scroll="false">
-      
+
       <div id="map" data-tap-disabled="true" ng-init="init()"></div>
-      
+
       <div class="parent">
         <div class="child">
           <div class="button-bar tab-buttons">
             <a class="button buttonorange">
               <i class="icon ion-gear-a"></i></a>
-            <a class="button buttonorange" ui-sref="login">
+            <a class="button buttonorange" data-toggle="modal" data-target="#myModal1">
               <i class="icon ion-person"></i>
             </a>
           </div>
@@ -94,6 +94,72 @@
         </div>
       </div>
     </div>
+
+
+<!-- new modal -->
+<div class="modal modal-transparent fade" id="myModal1" role="dialog">
+   <div class="modal-dialog">
+
+     <!-- Modal content-->
+     <div class="modal-content">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title user-name">Stephanie Choporis</h4>
+       </div>
+       <div class="modal-body">
+         <img alt="user image" class="user-image" src="https://pbs.twimg.com/profile_images/609501673455779840/XnhrtEUN.jpg" />
+         <button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal2">History</button>
+       </div>
+     </div>
+
+   </div>
+ </div>
+
+ <div class="modal fade" ng-controller="HistoryCtrl" id="myModal2" role="dialog">
+   <div class="modal-dialog">
+
+     <!-- Modal content-->
+     <div class="modal-content">
+       <div class="modal-header">
+
+         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+         <h4 class="modal-title">History</h4>
+       </div>
+       <div class="modal-body">
+         <!--ul class="list-group">
+            <li class="list-group-item">Cras justo odio</li>
+            <li class="list-group-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li>
+          </ul-->
+          <div class="list" id="historyList">
+              <div class="item item-divider">
+                Unfinished
+              </div>
+              <a class="item item-avatar" ng-repeat="location in locationList | filter: unfinished" ng-click="openHistory(location)">
+                <img src="{{location.imageUrl}}">
+                <h2>{{location.name}}</h2>
+                <p>{{location.description}}</p>
+              </a>
+
+              <div class="item item-divider">
+                Watched
+              </div>
+              <a class="item item-avatar" ng-repeat="location in locationList | filter: watched" ng-click="openHistory(location)">
+                <img src="{{location.imageUrl}}">
+                <h2>{{location.name}}</h2>
+                <p>{{location.description}}</p>
+              </a>
+          </div>
+       </div>
+       <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
+       </div>
+     </div>
+
+   </div>
+ </div>
 
     </ion-content>
 

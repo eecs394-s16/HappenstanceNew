@@ -1,18 +1,18 @@
 angular.module('starter.controllers', ['ui.router'])
 
-.controller('MapCtrl', function($scope, $ionicLoading) {
-  // // example usage of services
-  // Locations.all().$loaded().then(function(locations) {
-  //   console.log("all locations: ");
-  //   console.log(locations);
-  // });
+.controller('MapCtrl', function($scope, $ionicLoading, Locations, User) {
+  // example usage of services
+  Locations.all().$loaded().then(function(locations) {
+    console.log("all locations: ");
+    console.log(locations);
+  });
 
-  // User.get().$loaded().then(function(user) {
-  //   console.log("current user: ");
-  //   console.log(user);
-  // });
+  User.get().$loaded().then(function(user) {
+    console.log("current user: ");
+    console.log(user);
+  });
 
-  // $scope.markers = [];
+  $scope.markers = [];
 
 
 
@@ -57,11 +57,30 @@ angular.module('starter.controllers', ['ui.router'])
 
     };
 
-    $scope.locations = [location1, location2, location3];
 
-    $scope.init = function() {
+    // $scope.locations = [location1, location2, location3];
+
+  // $scope.mapCreated = function(map) {
+  //   console.log($scope.locations);
+  //   $scope.map = map;
+
+  //   $scope.myCenter = new google.maps.LatLng(41.904373,-87.6336537);
+  //   $scope.map.setCenter($scope.myCenter);
+  //   $scope.map.setZoom(14);
+
+  //   updateLocations();
+
+
+  //   Locations.ref().on('value', function(snapshot) {
+  //     console.log("locations changed!");
+  //     updateLocations();
+  //   });
+
+  //   navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  // };
+   $scope.init = function() {
         console.log("this ran!")
-        var myLatlng = new google.maps.LatLng(41.904373,-87.6336537);
+        var myLatlng = new google.maps.LatLng(41.8923034,-87.6417088);
         var mapOptions = {
           center: myLatlng,
           zoom: 14,
@@ -72,35 +91,26 @@ angular.module('starter.controllers', ['ui.router'])
         // $scope.map.setCenter($scope.myCenter);
         // $scope.map.setZoom(14);
 
-        $scope.locations.forEach(function(location) {
-          var marker = new google.maps.Marker({
-          position: location.loc
-          });
-          marker.setMap($scope.map);
+        updateLocations();
 
-           // add marker event listener
-          google.maps.event.addListener(marker,'click', function() {
-            // alert("modal is openning!");
-          //   var modalView = new supersonic.ui.View("example#modal");
-            // alert("modal is going to show up!");
-            window.localStorage.setItem("clicked_location", JSON.stringify(location));
-            $("#myModal").modal();
-          // // supersonic.ui.modal.show(modalView, $rootScope.options);
-          // });
-          });
-      });
+
+        Locations.ref().on('value', function(snapshot) {
+          console.log("locations changed!");
+          updateLocations();
+        });
+
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
-    
-    //reloads the page if $scope.map doesn't exist
-    //fixes the map not showing up bug
-    function reload() {
-      if (typeof $scope.map == "undefined") {
-        window.location.reload(false);
-      }
-    };
 
-    setTimeout(function() {reload()}, 50);
+  //reloads the page if $scope.map doesn't exist
+  //fixes the map not showing up bug
+  function reload() {
+    if (typeof $scope.map == "undefined") {
+      window.location.reload(false);
+    }
+  };
+
+  setTimeout(function() {reload()}, 50);
 
   var onSuccess = function(position) {
     var icon = {
@@ -129,6 +139,66 @@ angular.module('starter.controllers', ['ui.router'])
       alert('code: '    + error.code    + '\n' +
             'message: ' + error.message + '\n');
   }
+
+
+  function updateLocations() {
+    Locations.all().$loaded().then(function(locations) {
+        deleteMarkers();
+
+        $scope.locations = locations;
+        $scope.locations.forEach(function(location) {
+          console.log("add marker for: ");
+          console.log(location);
+          addMarker(location);
+        });
+        showMarkers();
+    });
+
+  };
+
+  // Adds a marker to the map and push to the array.
+  function addMarker(location) {
+    var marker = new google.maps.Marker({
+      position: location.loc,
+    });
+    // add marker event listener
+    google.maps.event.addListener(marker,'click', function() {
+      // alert("modal is openning!");
+    //   var modalView = new supersonic.ui.View("example#modal");
+      // alert("modal is going to show up!");
+      window.localStorage.setItem("clicked_location", JSON.stringify(location));
+      $("#myModal").modal();
+    // // supersonic.ui.modal.show(modalView, $rootScope.options);
+    // });
+    });
+    $scope.markers.push(marker);
+  }
+
+  // Sets the map on all markers in the array.
+  function setMapOnAll(map) {
+    for (var i = 0; i < $scope.markers.length; i++) {
+      $scope.markers[i].setMap(map);
+    }
+  }
+
+  // Removes the markers from the map, but keeps them in the array.
+  function clearMarkers() {
+    setMapOnAll(null);
+  }
+
+  // Shows any markers currently in the array.
+  function showMarkers() {
+    setMapOnAll($scope.map);
+  }
+
+  // Deletes all markers in the array by removing references to them.
+  function deleteMarkers() {
+    clearMarkers();
+    $scope.markers = [];
+  }
+
+
+
 
 
   $scope.centerOnMe = function () {
@@ -241,9 +311,20 @@ angular.module('starter.controllers', ['ui.router'])
   //
   $('#myModal').on('show.bs.modal', function() {
     console.log("modal showing!");
+    $scope.$apply(function(){
+      $scope.notFinished = true;
+    });
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
+    $scope.map.setCenter($scope.location.loc);
+    $scope.map.setZoom(14);
+
     $scope.$apply();
     $scope.autoplay();
+
+
+    console.log('id');
+    console.log($scope.location.$id);
+    // console.log(video.currentTime);
   });
 
   // filter for related storis
@@ -293,6 +374,12 @@ angular.module('starter.controllers', ['ui.router'])
   };
 
   $scope.addToHistory = function() {
+    console.log(audio.duration);
+    console.log(video.duration);
+    console.log(audio.currentTime/audio.duration);
+    console.log(video.currentTime/video.duration);
+    console.log('id');
+    console.log($scope.location.$id);
     if (isNaN(audio.duration) == false) {
       var percentage = audio.currentTime/audio.duration
     }
@@ -310,8 +397,18 @@ angular.module('starter.controllers', ['ui.router'])
       $scope.user.historyTime = [percentage];
     }
     else {
-      $scope.user.historyList.push($scope.location.$id);
-      $scope.user.historyTime.push(percentage);              
+      var added = false;
+      for (var i = 0; i < $scope.user.historyList.length; i++) {
+        if ($scope.user.historyList[i] === $scope.location.$id) {
+          added = true;
+          $scope.user.historyTime[i] = Math.max($scope.user.historyTime[i], percentage);
+        }
+      }
+      if (!added) {
+        $scope.user.historyList.push($scope.location.$id);
+        $scope.user.historyTime.push(percentage);
+      }
+
     }
     User.save()
   }
@@ -378,6 +475,9 @@ angular.module('starter.controllers', ['ui.router'])
 
   video.addEventListener('ended',gotoRelated,false);
   function gotoRelated() {
+    $scope.$apply(function(){
+      $scope.notFinished = false;
+    });
     console.log("ended! going to relatedStories");
     var footerOffeset = $('#relatedStories').offset().top;
     console.log("footer offset: " + footerOffeset);
@@ -457,7 +557,4 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 });
-
-
-
 

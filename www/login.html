@@ -1,3 +1,4 @@
+<p>Login</p>
 <!DOCTYPE html>
 <html>
   <head>
@@ -5,12 +6,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- <link href="lib/ionic/css/ionic.css" rel="stylesheet"> -->
     <link href="css/style.css" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
-    <!-- icon-fontawesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
     <!-- Firebase -->
     <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 
@@ -34,32 +34,21 @@
     <script src="js/controllers.js"></script>
     <script src="js/loginCtrl.js"></script>
     <script src="js/directives.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/historyCtrl.js"></script>
-
-
 
     <!-- AngularFire -->
     <script src="https://cdn.firebase.com/libs/angularfire/1.2.0/angularfire.min.js"></script>
-
   </head>
-
-
-  <body ng-app="starter">
-    <div ui-view=""></div>
-
-    
-  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-  <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyDF6QPjSNHiO9kXHiOOSwkyMIkRK9lw6v8",
-      authDomain: "happenstance.firebaseapp.com",
-      databaseURL: "https://happenstance.firebaseio.com",
-      storageBucket: "",
-    };
-    firebase.initializeApp(config);
-  </script>
-    
-  </body>
+	<body ng-app="starter" ng-controller="LoginCtrl">
+	    <ul>
+	        <li><label for="usermail">Email</label>
+	        <input ng-model="email" type="email" name="usermail" placeholder="yourname@email.com" required></li>
+	        <li><label for="password">Password</label>
+	        <input ng-model="password" type="password" name="password" placeholder="password" required></li>
+	        <li>
+	        <input ng-click="createAccount()" type="submit" value="Login"></li>
+	    </ul>
+	    <a class="btn button" href="index.html">
+              Go back
+        </a>
+	</body>
 </html>
