@@ -311,6 +311,9 @@ angular.module('starter.controllers', ['ui.router'])
   //
   $('#myModal').on('show.bs.modal', function() {
     console.log("modal showing!");
+    $scope.$apply(function(){
+      $scope.notFinished = true;
+    });
     $scope.location = JSON.parse(localStorage.getItem("clicked_location"));
     $scope.map.setCenter($scope.location.loc);
     $scope.map.setZoom(14);
@@ -472,6 +475,9 @@ angular.module('starter.controllers', ['ui.router'])
 
   video.addEventListener('ended',gotoRelated,false);
   function gotoRelated() {
+    $scope.$apply(function(){
+      $scope.notFinished = false;
+    });
     console.log("ended! going to relatedStories");
     var footerOffeset = $('#relatedStories').offset().top;
     console.log("footer offset: " + footerOffeset);
@@ -551,7 +557,4 @@ angular.module('starter.controllers', ['ui.router'])
 
 
 });
-
-
-
 
