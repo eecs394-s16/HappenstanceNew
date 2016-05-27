@@ -20,45 +20,103 @@ angular.module('starter.controllers', ['ui.router'])
       var location1 = {
       name : 'Green Door Tavern',
       videoUrl :null,
-      audioUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FJanet%20Fuller-%20Speakeasies_Abridged_mixdown.mp3?alt=media&token=acec5941-a36f-43e7-b74c-4ddd0ce17cb3",
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Janet+Fuller-+Speakeasies_Abridged_mixdown.mp3",
       loc : {
         lat : 41.894854,
         lng : -87.6396137
       },
       description : "Curious about the meaning behind that colorful door? Let our food expert Janet Fuller tell you all about how this popular watering hole used to be a speakeasy.",
-      imageUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FGreen%20Door%20Tavern.jpg?alt=media&token=46df70a2-ab71-46ed-ab89-5c582ff53450",
-      tags: ['entertainment', 'bar']
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Green+Door+Tavern.jpg",
+      tags: ['entertainment', 'bar', 'river north']
+
     };
 
     var location2 = {
       name : ' International Museum of Surgical Science',
       videoUrl :null,
-      audioUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/audios%2FSurgical%20Museum_Abridged_mixdown.mp3?alt=media&token=7c13e909-c137-4f9e-a66b-a95db0db213e",
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Surgical+Museum_Abridged_mixdown.mp3",
       loc : {
-        lat : 41.9103997,
+        lat : 41.894854,
         lng : -87.6276496
       },
       description : 'Ever thought about exchanging vows surrounded by amputation kits and ancient infant skulls? The International Museum of Surgical Science has hosted a variety of guests, even those about to say “I do.”',
-      imageUrl : "https://firebasestorage.googleapis.com/v0/b/project-149044853424651186.appspot.com/o/images%2FSurgical%20Museum%20(1).JPG?alt=media&token=99af1b19-0106-4d8e-8a8d-afeb54b23ab0",
-      tags: ['entertainment', 'science']
-    };
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Surgical+Museum.JPG",
+      tags: ['entertainment', 'science', 'river north']
 
+    };
     var location3 = {
       name : 'Northwestern University',
       videoUrl :"http://www.w3schools.com/html/mov_bbb.mp4",
       audioUrl : null,
       loc : {
-        lat : 42.058044,
+        lat : 42.0580446,
         lng : -87.677041
       },
       description : "Northwestern University is a private research university with campuses in Evanston and Chicago in Illinois, United States, as well as Doha, Qatar.",
       imageUrl : "https://geo1.ggpht.com/cbk?panoid=JQKsWM6AZwFa93Rc0Zo7-g&output=thumbnail&cb_client=search.TACTILE.gps&thumb=2&w=408&h=256&yaw=82.027817&pitch=0",
-      tags: ['education', 'science', 'entertainment']
+      tags: ['science', 'school', 'river north']
 
     };
 
 
-    // $scope.locations = [location1, location2, location3];
+     var location4 = {
+      name : 'Flaming saganaki',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Janet+Fuller-+Saganaki_mixdown.mp3",
+      loc : {
+        lat : 41.8901604,
+        lng : -87.6412844
+      },
+      description : "Flaming saganaki can be found on nearly every Greektown menu. But which restaurant invented it? Learn more from our resident food expert Janet Fuller.",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Flaming+Saganaki.jpg",
+      tags: ['entertainment', 'restaurant', 'river north']
+
+    };
+
+   var location5 = {
+      name : 'George Wendt',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/George+Wendt_mixdown.mp3",
+      loc : {
+        lat : 41.8949903,
+        lng : -87.6676959
+      },
+      description : "Before he became a staple at the bar where everyone knew his name, actor George Wendt experienced his first major career setback at Second City.",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/George_Wendt_1989.jpg",
+      tags: ['entertainment', 'history', 'bar', 'river north']
+
+    };
+
+    var location6 = {
+      name : 'Manual Cinema',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Manual+Cinema_mixdown.mp3",
+      loc : {
+        lat : 41.8905861,
+        lng : -87.6320762
+      },
+      description : "When you think shadow puppets, do you think of Chicago’s bar scene? Probably not. But this is actually where Manual Cinema got its start",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Manual+Cinema.jpg",
+      tags: ['entertainment', 'history', 'bar', 'river north']
+
+    };
+
+    var location7 = {
+      name : 'Lettuce Entertain You',
+      videoUrl :null,
+      audioUrl : "https://s3.amazonaws.com/happenstancefiles/audios/Janet+Fuller-+Lettuce+Entertain+You_mixdown.mp3",
+      loc : {
+        lat : 41.8936283,
+        lng : -87.6333376
+      },
+      description : "R.J. Grunts’ iconic salad bar paved the way for the salad bar craze more than 40 years ago. How else did Lettuce Entertain You transform Chicago dining? Find out more from our resident food expert Janet Fuller.",
+      imageUrl : "https://s3.amazonaws.com/happenstancefiles/images/Lettuce+Entertain+You+Logo.png",
+      tags: ['entertainment', 'restaurant', 'river north']
+
+    };
+
+
+    $scope.locations = [location1, location2, location3, location4, location5, location6, location7];
 
   // $scope.mapCreated = function(map) {
   //   console.log($scope.locations);
@@ -91,13 +149,18 @@ angular.module('starter.controllers', ['ui.router'])
         // $scope.map.setCenter($scope.myCenter);
         // $scope.map.setZoom(14);
 
-        updateLocations();
-
-
-        Locations.ref().on('value', function(snapshot) {
-          console.log("locations changed!");
+        google.maps.event.addListenerOnce($scope.map, 'tilesloaded', function(){
+          console.log("*******Google map created!!!!");
           updateLocations();
         });
+
+
+
+
+        // Locations.ref().on('value', function(snapshot) {
+        //   console.log("locations changed!");
+        //   updateLocations();
+        // });
 
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
@@ -142,17 +205,17 @@ angular.module('starter.controllers', ['ui.router'])
 
 
   function updateLocations() {
-    Locations.all().$loaded().then(function(locations) {
+    // Locations.all().$loaded().then(function(locations) {
         deleteMarkers();
 
-        $scope.locations = locations;
+        // $scope.locations = locations;
         $scope.locations.forEach(function(location) {
           console.log("add marker for: ");
           console.log(location);
           addMarker(location);
         });
         showMarkers();
-    });
+    // });
 
   };
 
