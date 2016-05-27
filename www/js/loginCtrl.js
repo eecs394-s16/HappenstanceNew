@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray, $state) {
+.controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray, $state, User) {
       // var ref = new Firebase("https://happenstance.firebaseio.com");
       // var database = $firebaseArray(ref);
       // var database = firebase.database();
@@ -74,6 +74,7 @@ angular.module('starter.controllers')
             // [END_EXCLUDE]
           }).then(function(authData) {
             console.log("signed in as " + authData.uid);
+            User.saveUserID(authData.uid);
             $state.go('home');
           });
 
