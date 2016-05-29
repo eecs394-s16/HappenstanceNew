@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray, $state, User) {
+.controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray, $state) {
       // var ref = new Firebase("https://happenstance.firebaseio.com");
       // var database = $firebaseArray(ref);
       // var database = firebase.database();
@@ -34,6 +34,7 @@ angular.module('starter.controllers')
         }).then(function(authData) {
           console.log("account successfully created for "+ authData.uid);
           console.log(authData);
+          window.localStorage.setItem("uid", authData.uid);
           firebase.database().ref('users/' + authData.uid).set({
               email: $scope.formData.email,
               name: $scope.formData.email.replace(/@.*/, ''),
@@ -74,7 +75,8 @@ angular.module('starter.controllers')
             // [END_EXCLUDE]
           }).then(function(authData) {
             console.log("signed in as " + authData.uid);
-            User.saveUserID(authData.uid);
+            window.localStorage.setItem("uid", authData.uid);
+            // User.saveUserID(authData.uid);
             $state.go('home');
           });
 

@@ -54,20 +54,21 @@ angular.module('starter.services', [])
 .service('User', function($firebaseObject, $rootScope) {
   console.log("service User called");
   // var userId = firebase.auth().currentUser.uid;
-  // console.log("current user is: " + userId);
+  var userId = window.localStorage.getItem("uid");
+  console.log("current user is: " + userId);
 
   // var userRef = firebase.database().ref('users/' + userId);
 
-  // if ($rootScope.user === undefined) {
-  //   $rootScope.user = $firebaseObject(new Firebase("https://happenstance.firebaseio.com/users/" + userId));
-  // }
-  var userId = null;
-
-  this.saveUserID = function (userID) {
-    var userId = userID
+  if ($rootScope.user === undefined) {
     $rootScope.user = $firebaseObject(new Firebase("https://happenstance.firebaseio.com/users/" + userId));
-    console.log("user ID in serveice: " + userId)
   }
+  // var userId = null;
+
+  // this.saveUserID = function (userID) {
+  //   userId = userID
+  //   $rootScope.user = $firebaseObject(new Firebase("https://happenstance.firebaseio.com/users/" + userId));
+  //   console.log("user ID in serveice: " + userId)
+  // }
 
   this.ref = function() {
     return firebase.database().ref('users/' + userId);
