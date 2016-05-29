@@ -374,12 +374,6 @@ angular.module('starter.controllers', ['ui.router'])
   };
 
   $scope.addToHistory = function() {
-    console.log(audio.duration);
-    console.log(video.duration);
-    console.log(audio.currentTime/audio.duration);
-    console.log(video.currentTime/video.duration);
-    console.log('id');
-    console.log($scope.location.$id);
     if (isNaN(audio.duration) == false) {
       var percentage = audio.currentTime/audio.duration
     }
@@ -412,6 +406,17 @@ angular.module('starter.controllers', ['ui.router'])
     }
     User.save();
     console.log(User.ref());
+  }
+
+  $scope.addToFavorites = function () {
+    $scope.user = User.get();
+    if (typeof $scope.user.favoritesList == 'undefined') {
+      $scope.user.favoritesList = [$scope.location.$id];
+    }
+    else {
+      $scope.user.favoritesList.push($scope.location.$id);
+    }
+    User.save();
   }
 
   $(".modal-transparent").on('show.bs.modal', function () {

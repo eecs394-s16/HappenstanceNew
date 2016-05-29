@@ -35,7 +35,7 @@
             <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
             <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
             <h4 class="modal-title">{{location.name}}</h4>
-            <i class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="toggle3=true"></i>
+            <i class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="addToFavorites(); toggle3=true"></i>
             <i class ="fa fa-star-o fav-icon" ng-show="toggle3"  ng-click="toggle3=false" style="color:#ffa500"></i>
           </h4>
           </div>
