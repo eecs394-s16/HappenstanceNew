@@ -94,10 +94,10 @@ angular.module('starter.controllers', ['ui.router'])
         updateLocations();
 
 
-        Locations.ref().on('value', function(snapshot) {
-          console.log("locations changed!");
-          updateLocations();
-        });
+        // Locations.ref().on('value', function(snapshot) {
+        //   console.log("locations changed!");
+        //   updateLocations();
+        // });
 
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
