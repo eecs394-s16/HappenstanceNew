@@ -410,7 +410,8 @@ angular.module('starter.controllers', ['ui.router'])
       }
 
     }
-    User.save()
+    User.save();
+    console.log(User.ref());
   }
 
   $(".modal-transparent").on('show.bs.modal', function () {
