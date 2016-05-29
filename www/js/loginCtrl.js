@@ -42,9 +42,11 @@ angular.module('starter.controllers')
               historyTime: [],
               favoritesList: [],
               favoritesTime: []
+          }).then(function() {
+              console.log('saved');
+              $state.go('home');
           });
-          console.log('saved');
-          $state.go('home');
+
         });
       };
 
