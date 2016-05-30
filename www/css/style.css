@@ -289,3 +289,17 @@ input[type=range]:focus::-ms-fill-upper {
 .notInFavorites {
   color: black;
 }
+
+
+.left-icon {
+  vertical-align: middle;
+  float: left;
+  margin-top: 2px;
+  margin-right: 2px;  
+}
+
+.modal-header-title {
+  text-align: center;
+  color: #fd4f0a;
+  font-size:20px; 
+}

@@ -125,19 +125,12 @@
      <!-- Modal content-->
      <div class="modal-content modalbody">
        <div class="modal-header">
-         <div class="row">
-           <div class="col">
-             <button type="button" class="" data-dismiss="modal" data-toggle="modal">&lt;</button>
-           </div>
-           <div class="col">
-             <h4 class="modal-title history">History</h4>
-           </div>
-           <div class="col">
-             <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-          </div>
-
-       </div>
-     </div>
+         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>          
+         
+         <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
+           
+         <h4 class="modal-title modal-header-title ">History</h4>
+      </div>
        <div class="modal-body">
           <div class="list" id="historyList">
               <div class="item item-divider">
@@ -174,19 +167,15 @@
     <!-- Modal content-->
     <div class="modal-content modalbody">
       <div class="modal-header">
-        <div class="row">
-          <div class="col">
-            <button type="button" class="" data-dismiss="modal" data-toggle="modal">&lt;</button>
-          </div>
-          <div class="col">
-            <h4 class="modal-title history">Preference</h4>
-          </div>
-          <div class="col">
-            <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-         </div>
-
-      </div>
+        <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+        
+        <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
+          
+        <h4 class="modal-title modal-header-title ">Preference</h4>       
+            
+         
     </div>
+
       <div class="modal-body">
          <div class="list" id="historyList">
              <a class="item item-avatar" ng-repeat="location in locationList" ng-click="openHistory(location)">
@@ -211,19 +200,13 @@
     <!-- Modal content-->
     <div class="modal-content modalbody">
       <div class="modal-header">
-        <div class="row">
-          <div class="col">
-            <button type="button" class="" data-dismiss="modal" data-toggle="modal">&lt;</button>
-          </div>
-          <div class="col">
-            <h4 class="modal-title history">Favorites</h4>
-          </div>
-          <div class="col">
-            <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-         </div>
-
+        <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+        
+        <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
+          
+        <h4 class="modal-title modal-header-title ">Favorites</h4>
       </div>
-    </div>
+
       <div class="modal-body">
          <div class="list" id="">
              <a class="item item-avatar" ng-repeat="location in locationList" ng-click="openStory(location)">
