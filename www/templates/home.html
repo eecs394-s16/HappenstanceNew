@@ -204,7 +204,7 @@
 </div>
 
 <!-- Favorite Modal -->
-<div class="modal fade" ng-controller="" id="myModal4" role="dialog">
+<div class="modal fade" ng-controller="FavoritesCtrl" id="myModal4" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
@@ -225,7 +225,7 @@
     </div>
       <div class="modal-body">
          <div class="list" id="">
-             <a class="item item-avatar" ng-repeat="location in locationList" ng-click="">
+             <a class="item item-avatar" ng-repeat="location in locationList" ng-click="openStory(location)">
                <img src="{{location.imageUrl}}">
                <h2>{{location.name}}</h2>
                <p>{{location.description}}</p>
