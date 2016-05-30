@@ -233,9 +233,14 @@ input[type=range]:focus::-ms-fill-upper {
 .react-button {
   margin-left: 18px;
 }
+.fa.fav-icon {
+  font-size: 1.5em;
+}
 .fav-icon {
-  font-size: 18px;
-  margin-left: 30px;
+  vertical-align: middle;
+  float: left;
+  margin-top: 2px;
+  margin-right: 2px;
 }
 .fav-icon: hover {
   color:#990000;

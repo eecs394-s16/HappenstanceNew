@@ -34,8 +34,9 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
             <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
-            <h4 class="modal-title">{{location.name}}</h4>
-            <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-click="toggleFavorite()" ng-class="{ 'notInFavorites': notInFavorites, 'inFavorites': inFavorites} "></i>
+             <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-click="toggleFavorite()" ng-class="{ 'notInFavorites': notInFavorites, 'inFavorites': inFavorites} "></i>
+            <h4 class="modal-title user-name">{{location.name}}</h4>
+           
 <!--             <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="addToFavorites(); toggle3=true"></i>
  --><!--             <i class ="fa fa-star-o fav-icon" ng-show="toggle3"  ng-click="toggle3=false" style="color:#ffa500"></i>
  -->          </h4>
@@ -149,7 +150,7 @@
               </a>
 
               <div class="item item-divider">
-                Watched
+                Finished
               </div>
               <a class="item item-avatar" ng-repeat="location in locationList | filter: watched" ng-click="openHistory(location)">
                 <img src="{{location.imageUrl}}">
@@ -215,7 +216,7 @@
             <button type="button" class="" data-dismiss="modal" data-toggle="modal">&lt;</button>
           </div>
           <div class="col">
-            <h4 class="modal-title history">Favorite</h4>
+            <h4 class="modal-title history">Favorites</h4>
           </div>
           <div class="col">
             <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
