@@ -40,8 +40,7 @@ angular.module('starter.controllers')
               name: $scope.formData.email.replace(/@.*/, ''),
               historyList: [],
               historyTime: [],
-              favoritesList: [],
-              favoritesTime: []
+              favoritesList: []
           }).then(function() {
               console.log('saved');
               $state.go('home');

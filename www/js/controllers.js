@@ -322,11 +322,35 @@ angular.module('starter.controllers', ['ui.router'])
     $scope.$apply();
     $scope.autoplay();
 
-
     console.log('id');
     console.log($scope.location.$id);
+
+    $scope.initializeFavorites();
     // console.log(video.currentTime);
   });
+
+  $scope.initializeFavorites = function() {
+    console.log("called init fav")
+    $scope.user = User.get();
+    console.log($scope.user);
+    if (typeof $scope.user.favoritesList == 'undefined') {
+      $scope.inFavorites = false;
+      $scope.notInFavorites = true;
+    }
+    else {
+      var i = $scope.user.favoritesList.indexOf($scope.location.$id);
+      if (i > -1) {
+        console.log("first if")
+        $scope.notInFavorites = false;
+        $scope.inFavorites = true;
+      }
+      else {
+        console.log("second if")
+        $scope.inFavorites = false;
+        $scope.notInFavorites = true;
+      }
+    }
+  }
 
   // filter for related storis
   $scope.related = function(relatedLoc) {
@@ -375,12 +399,6 @@ angular.module('starter.controllers', ['ui.router'])
   };
 
   $scope.addToHistory = function() {
-    console.log(audio.duration);
-    console.log(video.duration);
-    console.log(audio.currentTime/audio.duration);
-    console.log(video.currentTime/video.duration);
-    console.log('id');
-    console.log($scope.location.$id);
     if (isNaN(audio.duration) == false) {
       var percentage = audio.currentTime/audio.duration
     }
@@ -413,6 +431,48 @@ angular.module('starter.controllers', ['ui.router'])
     }
     User.save();
     console.log(User.ref());
+  }
+
+  $scope.addToFavorites = function () {
+    // $scope.user = User.get();
+    console.log($scope.user);
+    console.log
+    if (typeof $scope.user.favoritesList == 'undefined') {
+      console.log("undefined");
+      $scope.user.favoritesList = [$scope.location.$id];
+    }
+    else {
+      console.log("list alreadyexists")
+      $scope.user.favoritesList.push($scope.location.$id);
+    }
+    $scope.inFavorites = true;
+    $scope.notInFavorites = false;
+    User.save();
+  }
+
+  $scope.removeFromFavorites = function () {
+    // $scope.user = User.get();
+    console.log($scope.user);
+    var i = $scope.user.favoritesList.indexOf($scope.location.$id);
+    if (i > -1) {
+      console.log("in if statement")
+      $scope.user.favoritesList.splice(i, 1);
+      $scope.inFavorites = false;
+      $scope.notInFavorites = true;
+      User.save();
+    }
+  }
+
+  $scope.toggleFavorite = function () {
+    console.log("in togglefavorites");
+    if ($scope.inFavorites == true) {
+      console.log("removing from favoirtes")
+      $scope.removeFromFavorites();
+    }
+    else {
+      console.log("adding")
+      $scope.addToFavorites();
+    }
   }
 
   $(".modal-transparent").on('show.bs.modal', function () {

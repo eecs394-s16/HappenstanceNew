@@ -271,3 +271,11 @@ input[type=range]:focus::-ms-fill-upper {
   text-align: center;
   color:#fd4f0a;
 }
+
+.inFavorites {
+  color: #ffa500;
+}
+
+.notInFavorites {
+  color: black;
+}
