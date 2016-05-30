@@ -1,21 +1,32 @@
 
 	<div ng-controller="LoginCtrl">
-		<ion-header-bar class="bar-stable">
-		  <h1 class="title">Login</h1>
-		</ion-header-bar>
         <ion-content>
-    	    <ul>
-    	        <li><label for="usermail">Email</label>
-    	        <input ng-model="formData.email" type="email" name="usermail" placeholder="yourname@email.com" required></li>
-    	        <li><label for="password">Password</label>
-    	        <input ng-model="formData.password" type="password" name="password" placeholder="password" required></li>
-    	        <li>
-    	        <input ng-click="login()" type="submit" value="Login"></li>
-                <input ng-click="createAccount()" type="submit" value="Create Account"></li>
+        <div class="container">
+            <div class="loginhap">
+                <img src="./img/Happenstancepic.png">
+            </div>
+            <h3 class="title">Happenstance</h3>
+
+    	    <ul class="login">
+    	       <li class="loginbtn">
+    	           <input ng-model="formData.email" type="email" name="usermail" placeholder="Email" required>
+               </li>
+    	       <li class="loginbtn">
+    	           <input class="loginbtn" ng-model="formData.password" type="password" name="password" placeholder="Password" required>
+               </li>
+               <div>
+        	       <li>
+        	           <input class="btn btn-block buttonorange" ng-click="login()" type="submit" value="Login">
+                    </li>
+                    <li>
+                    <input class="btn btn-block buttonwhite" ng-click="createAccount()" type="submit" value="Create Account">
+                    </li>
+                </div>
     	    </ul>
             <p>{{loginMessage}}</p>
-    	    <a class="button buttonorange" ui-sref="home">
+    	    <!-- <a class="button buttonorange" ui-sref="home">
               Go back
-            </a>
+            </a> -->
+        </div>
     </ion-content>
 </div>
