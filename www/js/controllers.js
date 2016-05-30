@@ -94,10 +94,10 @@ angular.module('starter.controllers', ['ui.router'])
         updateLocations();
 
 
-        Locations.ref().on('value', function(snapshot) {
-          console.log("locations changed!");
-          updateLocations();
-        });
+        // Locations.ref().on('value', function(snapshot) {
+        //   console.log("locations changed!");
+        //   updateLocations();
+        // });
 
       navigator.geolocation.getCurrentPosition(onSuccess, onError);
     };
@@ -239,27 +239,28 @@ angular.module('starter.controllers', ['ui.router'])
 
   function addGeofence() {
     console.log("addGeofence() called");
-    $scope.locations.forEach(function(location) {
-      window.geofence.addOrUpdate({
-      id:             location.name,
-      latitude:       location.loc.lat,
-      longitude:      location.loc.lng,
-      radius:         300,
-      transitionType: TransitionType.BOTH,
-      notification: {
-          id:             1,
-          title:          "Welcome to" + location.name,
-          text:           location.description,
-          openAppOnClick: true,
-          data: location
+    Locations.all().$loaded().then(function(locations) {
+      locations.forEach(function(location) {
+        window.geofence.addOrUpdate({
+        id:             location.name,
+        latitude:       location.loc.lat,
+        longitude:      location.loc.lng,
+        radius:         300,
+        transitionType: TransitionType.BOTH,
+        notification: {
+            id:             1,
+            title:          "Welcome to" + location.name,
+            text:           location.description,
+            openAppOnClick: true,
+            data: location
         }
-      }).then(function () {
-          console.log('Geofence successfully added!');
-      }, function (reason) {
-          console.log('Adding geofence failed', reason);
+        }).then(function () {
+            console.log('Geofence successfully added!');
+        }, function (reason) {
+            console.log('Adding geofence failed', reason);
+        });
       });
-    });
-
+    }); 
   };
 
   function onNotificationClicked() {
