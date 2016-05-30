@@ -17,11 +17,11 @@
   font-family: "Avenir Light", sans-serif;
   color: #ff500a;
   float: auto;
-  /*text-align: center;*/
+  text-align: center;
 }
 
 .login {
-  width: 30%;
+  width: 100%;
 }
 
 .loginbtn {
@@ -34,8 +34,13 @@
 
 .loginhap {
   /*width: 30%;*/
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
+}
+.img-center {
+  margin-left: -moz-calc(50% - 94px);
+  margin-left: -webkit-calc(50% - 94px);
+  margin-left: -o-calc(50% - 94px);
+  margin-left: calc(50% - 94px);
 }
 
 .home {
