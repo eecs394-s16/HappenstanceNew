@@ -10,8 +10,9 @@
       <div class="parent">
         <div class="child">
           <div class="button-bar tab-buttons">
-            <a class="button buttonorange">
-              <i class="icon ion-gear-a"></i></a>
+            <a class="button buttonorange" data-toggle="modal" data-target="#settingsModal">
+              <i class="icon ion-gear-a"></i>
+            </a>
             <a class="button buttonorange" data-toggle="modal" data-target="#myModal1">
               <i class="icon ion-person"></i>
             </a>
@@ -36,7 +37,7 @@
             <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
              <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-click="toggleFavorite()" ng-class="{ 'notInFavorites': notInFavorites, 'inFavorites': inFavorites} "></i>
             <h4 class="modal-title user-name">{{location.name}}</h4>
-           
+
 <!--             <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="addToFavorites(); toggle3=true"></i>
  --><!--             <i class ="fa fa-star-o fav-icon" ng-show="toggle3"  ng-click="toggle3=false" style="color:#ffa500"></i>
  -->          </h4>
@@ -98,7 +99,7 @@
     </div>
 
 
-<!-- new modal -->
+<!-- Profile modal -->
 <div class="modal modal-transparent fade" id="myModal1" role="dialog">
    <div class="modal-dialog">
 
@@ -119,16 +120,35 @@
    </div>
  </div>
 
+ <!-- Setting modal-->
+<div class="modal modal-transparent fade" id="settingsModal" role="dialog">
+   <div class="modal-dialog">
+
+     <!-- Modal content-->
+     <div class="modal-content modalbody">
+       <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title user-name">{{userName}}</h4>
+       </div>
+       <div class="modal-body">
+         <img alt="user image" class="user-image" src="https://pbs.twimg.com/profile_images/609501673455779840/XnhrtEUN.jpg" />
+         <button type="button" class="btn buttonorange btn-block" ng-click="logout()">Logout</button>
+       </div>
+     </div>
+
+   </div>
+ </div>
+
  <div class="modal fade" ng-controller="HistoryCtrl" id="myModal2" role="dialog">
    <div class="modal-dialog">
 
      <!-- Modal content-->
      <div class="modal-content modalbody">
        <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>          
-         
+         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+
          <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
-           
+
          <h4 class="modal-title modal-header-title ">History</h4>
       </div>
        <div class="modal-body">
@@ -168,12 +188,12 @@
     <div class="modal-content modalbody">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-        
+
         <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
-          
-        <h4 class="modal-title modal-header-title ">Preference</h4>       
-            
-         
+
+        <h4 class="modal-title modal-header-title ">Preference</h4>
+
+
     </div>
 
       <div class="modal-body">
@@ -201,9 +221,9 @@
     <div class="modal-content modalbody">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-        
+
         <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
-          
+
         <h4 class="modal-title modal-header-title ">Favorites</h4>
       </div>
 

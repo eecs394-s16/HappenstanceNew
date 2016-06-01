@@ -95,8 +95,9 @@ angular.module('starter.controllers', ['ui.router'])
         // $scope.map.setZoom(14);
 
         updateLocations();
-
-
+        User.get().$loaded().then(function(user) {
+          $scope.userName = user.name;
+        });
         // Locations.ref().on('value', function(snapshot) {
         //   console.log("locations changed!");
         //   updateLocations();
@@ -276,6 +277,21 @@ angular.module('starter.controllers', ['ui.router'])
       $("#myModal").modal();
     };
   };
+
+  $scope.logout = function() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log("sign out!");
+    }, function(error) {
+      console.log("error in signing out");
+    });
+    console.log("clearing localStorage...");
+    window.localStorage.clear();
+    $("#settingsModal").modal("hide");
+    $state.go('login');
+  };
+
+
 
 
 })
