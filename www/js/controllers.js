@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ui.router'])
 
-.controller('MapCtrl', function($scope, $ionicLoading, Locations, User) {
+.controller('MapCtrl', function($scope, $ionicLoading, Locations, User, $state) {
   // example usage of services
   // Locations.all().$loaded().then(function(locations) {
   //   console.log("all locations: ");
@@ -13,8 +13,11 @@ angular.module('starter.controllers', ['ui.router'])
   // });
 
   $scope.markers = [];
-
-
+  console.log("started at home page");
+  if (!User.uid()) {
+    console.log("uid not defined!");
+    $state.go('login');
+  }
 
   // hardcode data for locations
       var location1 = {
@@ -260,7 +263,7 @@ angular.module('starter.controllers', ['ui.router'])
             console.log('Adding geofence failed', reason);
         });
       });
-    }); 
+    });
   };
 
   function onNotificationClicked() {
