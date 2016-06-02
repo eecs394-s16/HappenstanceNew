@@ -74,6 +74,11 @@ angular.module('starter.services', [])
     return firebase.database().ref('users/' + userId);
   };
 
+  this.updateUid = function() {
+    userId = window.localStorage.getItem("uid");
+    $rootScope.user = $firebaseObject(new Firebase("https://happenstance.firebaseio.com/users/" + userId));
+  }
+
   this.uid = function() {
     return window.localStorage.getItem("uid");
   }

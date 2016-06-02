@@ -1,5 +1,5 @@
 angular.module('starter.controllers')
-.controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray, $state) {
+.controller('LoginCtrl', function($scope, $ionicLoading, $firebaseArray, $state, User) {
       // var ref = new Firebase("https://happenstance.firebaseio.com");
       // var database = $firebaseArray(ref);
       // var database = firebase.database();
@@ -43,6 +43,7 @@ angular.module('starter.controllers')
               favoritesList: []
           }).then(function() {
               console.log('saved');
+              User.updateUid();
               $state.go('home');
           });
 
@@ -78,6 +79,7 @@ angular.module('starter.controllers')
             console.log("signed in as " + authData.uid);
             window.localStorage.setItem("uid", authData.uid);
             // User.saveUserID(authData.uid);
+            User.updateUid();
             $state.go('home');
           });
 

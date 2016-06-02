@@ -18,7 +18,6 @@ angular.module('starter.controllers', ['ui.router'])
     console.log("uid not defined!");
     $state.go('login');
   }
-
   // hardcode data for locations
       var location1 = {
       name : 'Green Door Tavern',
@@ -82,6 +81,9 @@ angular.module('starter.controllers', ['ui.router'])
   //   navigator.geolocation.getCurrentPosition(onSuccess, onError);
   // };
    $scope.init = function() {
+        if (!User.uid()) {
+          return;
+        }
         console.log("this ran!")
         var myLatlng = new google.maps.LatLng(41.8923034,-87.6417088);
         var mapOptions = {
@@ -242,9 +244,11 @@ angular.module('starter.controllers', ['ui.router'])
 
 
   function addGeofence() {
-    console.log("addGeofence() called");
     Locations.all().$loaded().then(function(locations) {
-      locations.forEach(function(location) {
+      for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+        console.log("adding geofence for");
+        console.log(location.name);
         window.geofence.addOrUpdate({
         id:             location.name,
         latitude:       location.loc.lat,
@@ -252,7 +256,7 @@ angular.module('starter.controllers', ['ui.router'])
         radius:         300,
         transitionType: TransitionType.BOTH,
         notification: {
-            id:             1,
+            id:             i,
             title:          "Welcome to" + location.name,
             text:           location.description,
             openAppOnClick: true,
@@ -263,9 +267,63 @@ angular.module('starter.controllers', ['ui.router'])
         }, function (reason) {
             console.log('Adding geofence failed', reason);
         });
-      });
+      }
+      // }
+      // locations.forEach(function(location) {
+      //   console.log("adding geofence for");
+      //   console.log(location.name);
+      //   window.geofence.addOrUpdate({
+      //   id:             location.name,
+      //   latitude:       location.loc.lat,
+      //   longitude:      location.loc.lng,
+      //   radius:         300,
+      //   transitionType: TransitionType.BOTH,
+      //   notification: {
+      //       id:             location.$id,
+      //       title:          "Welcome to" + location.name,
+      //       text:           location.description,
+      //       openAppOnClick: true,
+      //       data: location
+      //   }
+      //   }).then(function () {
+      //       console.log('Geofence successfully added!');
+      //   }, function (reason) {
+      //       console.log('Adding geofence failed', reason);
+      //   });
+      // });
     });
-  };
+    // console.log("addGeofence() called");
+    // window.geofence.removeAll().then(function () {
+    //     console.log('All geofences successfully removed.');
+    //     Locations.all().$loaded().then(function(locations) {
+    //         locations.forEach(function(location) {
+    //           window.geofence.addOrUpdate({
+    //           id:             location.name,
+    //           latitude:       location.loc.lat,
+    //           longitude:      location.loc.lng,
+    //           radius:         300,
+    //           transitionType: TransitionType.BOTH,
+    //           notification: {
+    //               id:             1,
+    //               title:          "Welcome to" + location.name,
+    //               text:           location.description,
+    //               openAppOnClick: true,
+    //               data: location
+    //           }
+    //           }).then(function () {
+    //               console.log('Geofence successfully added!');
+    //           }, function (reason) {
+    //               console.log('Adding geofence failed', reason);
+    //           });
+    //         });
+    //       });
+    // }
+    // , function (reason) {
+    //     console.log('Removing geofences failed', reason);
+    // });
+  }
+
+
 
   function onNotificationClicked() {
     window.geofence.onNotificationClicked = function (location) {
@@ -287,6 +345,8 @@ angular.module('starter.controllers', ['ui.router'])
     });
     console.log("clearing localStorage...");
     window.localStorage.clear();
+    console.log("after clearing uid is");
+    console.log(window.localStorage.getItem("uid"));
     $("#settingsModal").modal("hide");
     $state.go('login');
   };
