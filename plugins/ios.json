@@ -1,0 +1,31 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-geofence": {
+            "PACKAGE_NAME": "edu.northwestern.eecs394.happenstance"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "edu.northwestern.eecs394.happenstance"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "edu.northwestern.eecs394.happenstance"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "edu.northwestern.eecs394.happenstance"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "edu.northwestern.eecs394.happenstance"
+        },
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "edu.northwestern.eecs394.happenstance"
+        }
+    }
+}
