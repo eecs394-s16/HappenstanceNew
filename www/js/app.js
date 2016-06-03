@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'starter.services', 'firebase', 'ui.router'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'firebase', 'ui.router'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -22,7 +22,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives',
 
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('login', {
-            // we'll get to this in a bit
             url: '/login',
             templateUrl: 'templates/login.html'
         });

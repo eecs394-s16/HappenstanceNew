@@ -1,250 +1,223 @@
 <div ng-controller="MapCtrl">
-<ion-header-bar class="bar-stable">
-      <h1 class="title">Map</h1>
-    </ion-header-bar>
+	<ion-header-bar class="bar-stable">
+		<h1 class="title">Map</h1>
+	</ion-header-bar>
+	<ion-content scroll="false">
 
-    <ion-content scroll="false">
+	<!-- 	Map -->
+		<div id="map" data-tap-disabled="true" ng-init="init()"></div>
 
-      <div id="map" data-tap-disabled="true" ng-init="init()"></div>
+		<div class="parent">
+			<div class="child">
+				<div class="button-bar tab-buttons">
+					<a class="button buttonorange" data-toggle="modal" data-target="#settingsModal">
+						<i class="icon ion-gear-a"></i>
+					</a>
+					<a class="button buttonorange" data-toggle="modal" data-target="#myModal1">
+						<i class="icon ion-person"></i>
+					</a>
+				</div>
+				<div class="home">
+					<a class="button buttonorange home">
+						<img class="hapicon" src="./img/Happenstancepic.png">
+					</a>
+				</div>
+			</div>
+		</div>
 
-      <div class="parent">
-        <div class="child">
-          <div class="button-bar tab-buttons">
-            <a class="button buttonorange" data-toggle="modal" data-target="#settingsModal">
-              <i class="icon ion-gear-a"></i>
-            </a>
-            <a class="button buttonorange" data-toggle="modal" data-target="#myModal1">
-              <i class="icon ion-person"></i>
-            </a>
-          </div>
+		<!-- Modal -->
+		<div ng-controller="ModalCtrl" class="modal modal-transparent fade" id="myModal" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content modalbody">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
+						<!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
+						<i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-click="toggleFavorite()" ng-class="{ 'notInFavorites': notInFavorites, 'inFavorites': inFavorites} "></i>
+						<h4 class="modal-title user-name">{{location.name}}</h4>
+					</div>
+					<div class="modal-body">
+						<div ng-show="location.videoUrl">
+							<video class="responsive" ng-src="{{location.videoUrl}}" width="340" id="myvideo" webkit-playsinline="true">
+								Your browser does not support HTML5 video.
+							</video>
+							<!-- Video Controls -->
+							<div id="video-controls">
+								<input class="progress-bar orange" type="range" id="seek-bar" value="0">
+								<div class="row">
+									<button class="button button-clear orange col-33" type="button" id="pre-backward"><i class="icon ion-chevron-left orange"></i></button>
+									<button class="button button-clear orange col-33" type="button" id="play-pause"><i class="icon ion-pause orange"></i></button>
+									<button class="button button-clear orange col-33" type="button" id="next"><i class="icon ion-chevron-right orange"></i></button>
+								</div>
+								<div>
+									{{location.description}}
+								</div>
+							</div>
+						</div>
 
-          <div class="home">
-            <a class="button buttonorange home">
-              <img class="hapicon" src="./img/Happenstancepic.png">
-            </a>
-          </div>
-        </div>
-      </div>
+						<!-- Audio Controls -->
+						<div ng-show="location.audioUrl">
+							<audio ng-src="{{location.audioUrl}}" id="myaudio">
+								Your browser does not support the audio element.
+							</audio>
+							<div>
+								<img class="responsive" ng-src="{{location.imageUrl}}">
+							</div>
+							<div id="audio-controls">
+								<input class="progress-bar orange" type="range" id="seek-bar-audio" value="0">
+								<div class="row">
+									<button class="button button-clear orange col-33" type="button" id="pre-backward-audio"><i class="icon ion-chevron-left orange"></i></button>
+									<button class="button button-clear orange col-33" type="button" id="play-pause-audio"><i class="icon ion-pause orange"></i></button>
+									<button class="button button-clear orange col-33" type="button" id="next-audio"><i class="icon ion-chevron-right orange"></i></button>
+								</div>
+								<div>
+									{{location.description}}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mossdal-footer">
+						<div class="list" id="relatedStories" ng-hide="notFinished">
+							<div class="item item-divider">
+								Related stories
+							</div>
+							<a class="item item-avatar" ng-repeat="relatedLoc in locations | filter: related | orderBy: '-counter' | limitTo: 3" ng-click="openRelated(relatedLoc)">
+								<img ng-src="{{relatedLoc.imageUrl}}">
+								<h2>{{relatedLoc.name}}</h2>
+								<p>{{relatedLoc.description}}</p>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<!-- Profile modal -->
+		<div class="modal modal-transparent fade" id="myModal1" role="dialog">
+			<div class="modal-dialog">
 
-      <!-- Modal -->
-    <div ng-controller="ModalCtrl" class="modal modal-transparent fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content modalbody">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" ng-click="stopPlay()">&#xD7;</button>
-            <!-- <h4 class="modal-title">{{location.name}}<i class="icon ion-star"></i></h4> -->
-             <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-click="toggleFavorite()" ng-class="{ 'notInFavorites': notInFavorites, 'inFavorites': inFavorites} "></i>
-            <h4 class="modal-title user-name">{{location.name}}</h4>
+				<!-- Modal content-->
+				<div class="modal-content modalbody">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title user-name">Meg Grasse</h4>
+					</div>
+					<div class="modal-body">
+						<img alt="user image" class="user-image" src="https://media.licdn.com/media/p/3/005/08a/2b3/1ac1095.jpg" />
+						<button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal2">History</button>
+						<button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal3">Preferences</button>
+						<button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal4">Favorites</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-<!--             <i id="favoritesstar" class ="fa fa-star-o fav-icon" ng-show="!toggle3" ng-click="addToFavorites(); toggle3=true"></i>
- --><!--             <i class ="fa fa-star-o fav-icon" ng-show="toggle3"  ng-click="toggle3=false" style="color:#ffa500"></i>
- -->          </h4>
-          </div>
-          <div class="modal-body">
-            <div ng-show="location.videoUrl">
-              <video class="responsive" ng-src="{{location.videoUrl}}" width="340" id="myvideo" webkit-playsinline="true">
-                Your browser does not support HTML5 video.
-              </video>
-              <!-- Video Controls -->
-              <div id="video-controls">
-                <input class="progress-bar orange" type="range" id="seek-bar" value="0">
-                <div class="row">
-                  <button class="button button-clear orange col-33" type="button" id="pre-backward"><i class="icon ion-chevron-left orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="play-pause"><i class="icon ion-pause orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="next"><i class="icon ion-chevron-right orange"></i></button>
-                </div>
-                <div>
-                  {{location.description}}
-                </div>
-              </div>
-            </div>
-            <div ng-show="location.audioUrl">
-              <audio ng-src="{{location.audioUrl}}" id="myaudio">
-                Your browser does not support the audio element.
-              </audio>
-              <div>
-                <img class="responsive" ng-src="{{location.imageUrl}}">
-              </div>
-              <div id="audio-controls">
-                <input class="progress-bar orange" type="range" id="seek-bar-audio" value="0">
-                <div class="row">
-                  <button class="button button-clear orange col-33" type="button" id="pre-backward-audio"><i class="icon ion-chevron-left orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="play-pause-audio"><i class="icon ion-pause orange"></i></button>
-                  <button class="button button-clear orange col-33" type="button" id="next-audio"><i class="icon ion-chevron-right orange"></i></button>
-                </div>
-                <div>
-                  {{location.description}}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mossdal-footer">
-            <!-- <button type="button" ng-click="stopPlay()" class="btn btn-default" data-dismiss="modal">Close</button> -->
-            <div class="list" id="relatedStories" ng-hide="notFinished">
-              <div class="item item-divider">
-                Related stories
-              </div>
+		<!-- Setting modal-->
+		<div class="modal modal-transparent fade" id="settingsModal" role="dialog">
+			<div class="modal-dialog">
 
-              <a class="item item-avatar" ng-repeat="relatedLoc in locations | filter: related | orderBy: '-counter' | limitTo: 3" ng-click="openRelated(relatedLoc)" ;="">
-                <img ng-src="{{relatedLoc.imageUrl}}">
-                <h2>{{relatedLoc.name}}</h2>
-                <p>{{relatedLoc.description}}</p>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+				<!-- Modal content-->
+				<div class="modal-content modalbody">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title user-name">{{userName}}</h4>
+					</div>
+					<div class="modal-body">
+						<img alt="user image" class="user-image" src="https://media.licdn.com/media/p/3/005/08a/2b3/1ac1095.jpg" />
+						<button type="button" class="btn buttonorange btn-block" ng-click="logout()">Logout</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
+		<!-- History modal-->
+		<div class="modal fade" ng-controller="HistoryCtrl" id="myModal2" role="dialog">
+			<div class="modal-dialog">
 
-<!-- Profile modal -->
-<div class="modal modal-transparent fade" id="myModal1" role="dialog">
-   <div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content modalbody">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+						<h4 class="modal-title modal-header-title ">History</h4>
+					</div>
+					<div class="modal-body">
+						<div class="list" id="historyList">
+							<div class="item item-divider">
+								Unfinished
+							</div>
+							<a class="item item-avatar" ng-repeat="location in locationList | filter: unfinished" ng-click="openHistory(location)">
+								<img src="{{location.imageUrl}}">
+								<h2>{{location.name}}</h2>
+								<p>{{location.description}}</p>
+							</a>
+							<div class="item item-divider">
+								Finished
+							</div>
+							<a class="item item-avatar" ng-repeat="location in locationList | filter: watched" ng-click="openHistory(location)">
+								<img src="{{location.imageUrl}}">
+								<h2>{{location.name}}</h2>
+								<p>{{location.description}}</p>
+							</a>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-     <!-- Modal content-->
-     <div class="modal-content modalbody">
-       <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title user-name">Meg Grasse</h4>
-       </div>
-       <div class="modal-body">
-         <img alt="user image" class="user-image" src="https://media.licdn.com/media/p/3/005/08a/2b3/1ac1095.jpg" />
-         <button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal2">History</button>
-         <button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal3">Preference</button>
-         <button type="button" class="btn buttonorange btn-block" data-toggle="modal" data-target="#myModal4">Favorite</button>
-       </div>
-     </div>
+		<!-- Preference Modal -->
+		<div class="modal fade" ng-controller="HistoryCtrl" id="myModal3" role="dialog">
+			<div class="modal-dialog">
 
-   </div>
- </div>
+				<!-- Modal content-->
+				<div class="modal-content modalbody">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+						<h4 class="modal-title modal-header-title ">Preferences</h4>
+					</div>
+					<div class="modal-body">
+						<div class="list" id="historyList">
+							<a class="item item-avatar" ng-repeat="location in locationList" ng-click="openHistory(location)">
+								<img src="{{location.imageUrl}}">
+								<h2>{{location.name}}</h2>
+								<p>{{location.description}}</p>
+							</a>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
- <!-- Setting modal-->
-<div class="modal modal-transparent fade" id="settingsModal" role="dialog">
-   <div class="modal-dialog">
+		<!-- Favorite Modal -->
+		<div class="modal fade" ng-controller="FavoritesCtrl" id="myModal4" role="dialog">
+			<div class="modal-dialog">
 
-     <!-- Modal content-->
-     <div class="modal-content modalbody">
-       <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title user-name">{{userName}}</h4>
-       </div>
-       <div class="modal-body">
-         <img alt="user image" class="user-image" src="https://media.licdn.com/media/p/3/005/08a/2b3/1ac1095.jpg" />
-         <button type="button" class="btn buttonorange btn-block" ng-click="logout()">Logout</button>
-       </div>
-     </div>
+				<!-- Modal content-->
+				<div class="modal-content modalbody">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
+						<h4 class="modal-title modal-header-title ">Favorites</h4>
+					</div>
+					<div class="modal-body">
+						<div class="list" id="">
+							<a class="item item-avatar" ng-repeat="location in locationList" ng-click="openStory(location)">
+								<img src="{{location.imageUrl}}">
+								<h2>{{location.name}}</h2>
+								<p>{{location.description}}</p>
+							</a>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-   </div>
- </div>
-
- <div class="modal fade" ng-controller="HistoryCtrl" id="myModal2" role="dialog">
-   <div class="modal-dialog">
-
-     <!-- Modal content-->
-     <div class="modal-content modalbody">
-       <div class="modal-header">
-         <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-
-         <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
-
-         <h4 class="modal-title modal-header-title ">History</h4>
-      </div>
-       <div class="modal-body">
-          <div class="list" id="historyList">
-              <div class="item item-divider">
-                Unfinished
-              </div>
-              <a class="item item-avatar" ng-repeat="location in locationList | filter: unfinished" ng-click="openHistory(location)">
-                <img src="{{location.imageUrl}}">
-                <h2>{{location.name}}</h2>
-                <p>{{location.description}}</p>
-              </a>
-
-              <div class="item item-divider">
-                Finished
-              </div>
-              <a class="item item-avatar" ng-repeat="location in locationList | filter: watched" ng-click="openHistory(location)">
-                <img src="{{location.imageUrl}}">
-                <h2>{{location.name}}</h2>
-                <p>{{location.description}}</p>
-              </a>
-          </div>
-       </div>
-       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
-       </div>
-     </div>
-
-   </div>
- </div>
-
-<!-- Preference Modal -->
-<div class="modal fade" ng-controller="HistoryCtrl" id="myModal3" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content modalbody">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-
-        <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
-
-        <h4 class="modal-title modal-header-title ">Preference</h4>
-
-
-    </div>
-
-      <div class="modal-body">
-         <div class="list" id="historyList">
-             <a class="item item-avatar" ng-repeat="location in locationList" ng-click="openHistory(location)">
-               <img src="{{location.imageUrl}}">
-               <h2>{{location.name}}</h2>
-               <p>{{location.description}}</p>
-             </a>
-         </div>
-      </div>
-      <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- Favorite Modal -->
-<div class="modal fade" ng-controller="FavoritesCtrl" id="myModal4" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content modalbody">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" data-toggle="modal" href="#myModal1">&times;</button>
-
-        <button type="button" class="left-icon" data-dismiss="modal" data-toggle="modal">&lt;</button>
-
-        <h4 class="modal-title modal-header-title ">Favorites</h4>
-      </div>
-
-      <div class="modal-body">
-         <div class="list" id="">
-             <a class="item item-avatar" ng-repeat="location in locationList" ng-click="openStory(location)">
-               <img src="{{location.imageUrl}}">
-               <h2>{{location.name}}</h2>
-               <p>{{location.description}}</p>
-             </a>
-         </div>
-      </div>
-      <div class="modal-footer">
-       <button type="button" class="btn btn-secondary" data-dismiss="modal" data-toggle="modal">Back</button>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-    </ion-content>
-
-
+	</ion-content>
 </div>
