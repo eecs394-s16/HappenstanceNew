@@ -50,11 +50,10 @@ angular.module('starter.controllers', ['ui.router'])
 		marker.setMap($scope.map);
 	};
 
-	// Uncomment to alert with error
-	// function onError(error) {
-	// 		alert('code: '    + error.code    + '\n' +
-	// 					'message: ' + error.message + '\n');
-	// }
+	function onError(error) {
+			alert('code: '    + error.code    + '\n' +
+						'message: ' + error.message + '\n');
+	}
 
 	function updateLocations() {
 		Locations.all().$loaded().then(function(locations) {
@@ -71,7 +70,7 @@ angular.module('starter.controllers', ['ui.router'])
 	// Adds a marker to the map and push to the array.
 	function addMarker(location) {
 		var marker = new google.maps.Marker({
-			position: location.loc,
+			position: location.loc
 		});
 		// add marker event listener
 		google.maps.event.addListener(marker,'click', function() {
